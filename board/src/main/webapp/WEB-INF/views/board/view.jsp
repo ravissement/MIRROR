@@ -27,9 +27,10 @@
 	height:4em;
 }
 
-.titleInput {border:none; height:100px; width:100%; font-size: 3em;}
+.titleInput {border:none; height:80px; width:100%; font-size: 3em;}
 .subTitleInput {border:none; width:100%; font-size: 1em;}
 .btnSort-set{ text-align:right; font-weight:bold; }
+.writerSide {padding: 5px;}
 </style>
 
 
@@ -39,6 +40,7 @@
 	
 	
 <div class="container">
+	
 	<div  class="titleInput">
 		${view.title}
 	</div>
@@ -49,18 +51,19 @@
 		<a href="/board/modify?bno=${view.bno}">수정</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<a href="/board/delete?bno=${view.bno}" onclick="return confirm('Are you sure?')">삭제</a>
 	</div>
+	<div class="writerSide">
 	By ${view.writer}
+	</div>
 	<hr/>
 	<div style="margin:1%;">
 		${fn:replace(view.content, replaceChar, "<br/>")}
 	</div>
 	
-	
-	
-
-	<!-- <button type="submit">작성</button> -->
+	<br>
 	<!-- 댓글 시작 -->
 	<hr/>
+	<br>
+	<br>
 	<c:forEach items="${reply}" var="reply" varStatus="status">
 		<li id="replyBoard${reply.rno}" style="list-style:none;">
 			<div>

@@ -29,6 +29,13 @@ public interface BoardDAO {
 	public List<BoardVO> listPageSerch(
 			int displayPost, int postNum, String searchType, String keyword) throws Exception;
 	
+	//게시물 목록 + 페이징 + 검색 + 유저 개인
+	public List<BoardVO> userList(
+			int displayPost, int postNum, String searchType, String keyword, String user_id) throws Exception;
+	
 	//게시물 총 갯수 + 검색 적용
 	public int searchCount(String searchType, String keyword) throws Exception;
+	
+	//게시물 총 갯수 + 검색 적용 + 유저 개인
+	public int userSearchCount(String searchType, String keyword, String user_id) throws Exception;
 }

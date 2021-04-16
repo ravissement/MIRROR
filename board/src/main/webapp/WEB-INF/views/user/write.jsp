@@ -117,12 +117,12 @@ $('input[name=id_double_check]').click(function(){
         success: function(data){
         	if(data == "Y") {
         		$('.id_input_re_1').css("display","inline-block");
-				$('.id_input_re_2').css("display", "none");
-				$('input[name=idck]').val("1");
+						$('.id_input_re_2').css("display", "none");
+						$('input[name=idck]').val("1");
         	}else {
         		$('.id_input_re_2').css("display","inline-block");
-				$('.id_input_re_1').css("display", "none");
-				$('input[name=idck]').val("");
+						$('.id_input_re_1').css("display", "none");
+						$('input[name=idck]').val("");
         	}
         },
         error: function(){

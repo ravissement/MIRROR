@@ -32,4 +32,9 @@ public class UserDAOImpl implements UserDAO {
 		return sql.selectOne(namespace + ".idCheck", id);
 	}
 
+	@Override
+	public void thumbnail(UserVO vo) throws Exception {
+		sql.update(namespace + ".thumbnail", vo);
+	}
+
 }

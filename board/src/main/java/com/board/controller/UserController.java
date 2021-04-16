@@ -1,25 +1,32 @@
 package com.board.controller;
 
+
+import java.io.File;
+
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.board.domain.UserVO;
 import com.board.service.UserService;
+import com.board.utils.UploadFileUtils;
 
 @Controller
 @RequestMapping("/user/*")
 public class UserController {
 	
 	@Inject UserService service;
-	
+	@Resource(name="uploadPath")
+	private String uploadPath;
 	
 	//회원가입 작성
 	@RequestMapping(value ="/write", method = RequestMethod.GET)
@@ -34,6 +41,7 @@ public class UserController {
 		
 		service.join(vo);
 		model.addAttribute("userJoinName", vo.getUser_name());
+		model.addAttribute("nav", "noSearch");
 		
 		return "home";
 	}
@@ -56,6 +64,7 @@ public class UserController {
 		if(login == null) {
 			session.setAttribute("member", null);
 			model.addAttribute("loginResult", "X");
+			model.addAttribute("nav", "noSearch");
 			url = "/user/login";
 		} else {
 			session.setAttribute("member", login);
@@ -87,6 +96,29 @@ public class UserController {
 			return "N";
 		}
 		
+	}
+	
+	
+	@RequestMapping(value ="/thumbnail", method = RequestMethod.POST)
+	public String getThumbnail(UserVO vo, @RequestParam(value = "thumbnail_file", required = false) MultipartFile file, Model model) throws Exception {
+		
+		String imgUploadPath = uploadPath + File.separator + "thumbnail";
+		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+		String fileName = null;
+		//String originalFilename = vo.getUser_id() + "_thumbnail.png";
+		if(file != null) {
+			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
+		} else {
+			fileName = uploadPath + File.separator + "thumbnail" + File.separator + "none.png";
+		}
+
+		vo.setOri_thumbnail(File.separator + "thumbnail" + ymdPath + File.separator + fileName);
+		vo.setUser_thumbnail(File.separator + "thumbnail" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
+		
+		service.thumbnail(vo);
+		model.addAttribute("member_thumb", vo);
+		//model.addAttribute("filename", file);
+		return "home";
 		
 	}
 	

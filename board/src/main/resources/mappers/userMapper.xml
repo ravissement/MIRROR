@@ -17,7 +17,7 @@
 	
 	<!--로그인 -->
 	<select id="login" resultType="com.board.domain.UserVO">
-		SELECT user_id, user_name, AES_DECRYPT(UNHEX(user_email),'e') as user_email 
+		SELECT user_id, user_name, AES_DECRYPT(UNHEX(user_email),'e') as user_email, user_thumbnail,  ori_thumbnail 
 		FROM board.tbl_user 
 		WHERE user_id = #{user_id} AND user_pw = SHA2(#{user_pw}, 512)
 	</select>
@@ -29,6 +29,16 @@
 		FROM board.tbl_user 
 		WHERE user_id = #{user_id}
 	</select>
+	
+	<!-- 썸네일 등록 -->
+	<update id="thumbnail">
+	 	update
+	 		board.tbl_user 
+	 	set
+	 		ori_thumbnail = #{ori_thumbnail},
+	 		user_thumbnail = #{user_thumbnail} 
+		where user_id = #{user_id}
+	</update>
 	
 	
 	

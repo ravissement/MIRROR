@@ -64,4 +64,15 @@ public class BoardServiceImpl implements BoardService {
 		return dao.searchCount(searchType, keyword);
 	}
 
+	@Override
+	public int userSearchCount(String searchType, String keyword, String user_id) throws Exception {
+		return dao.userSearchCount(searchType, keyword, user_id);
+	}
+
+	@Override
+	public List<BoardVO> userList(int displayPost, int postNum, String searchType, String keyword, String user_id)
+			throws Exception {
+		return dao.userList(displayPost, postNum, searchType, keyword, user_id);
+	}
+
 }

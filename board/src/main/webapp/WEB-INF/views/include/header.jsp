@@ -68,10 +68,13 @@ html.open {
   z-index: 4;
   display: none;
 }
-
+.userThumbnailMain { border-radius: 40%;}
+#thumbnail_file{ display: none; }
+#buttonThumnArea {padding: 5px;;}
 </style>
 
 <div>
+	
 	<div class="btn">
 		<div style="cursor:pointer; margin-left: 100%; font-size:1.5em; line-height:1.8em; " >&nbsp;MIRROR</div>
 	</div>
@@ -82,12 +85,45 @@ html.open {
 	  <div style="margin-top: 50%;">
 	  <c:if test="${!empty member}">
 	  <div>
-	  	<div>
-	  		<a href="#"><i class="fas fa-user-plus" style="font-size:2em;"></i></a>
-	  	</div>
+	  	
+	  	<c:if test="${!empty member_thumb}"> 
+	  		<a href="#" id="thumbfile"><img src="${member_thumb.user_thumbnail}" class="userThumbnailMain" /></a>
+	  	</c:if>
+	  	<c:if test="${empty member_thumb}">
+				<a href="#" id="thumbfile"><img src="${member.user_thumbnail}" class="userThumbnailMain"/></a>  	
+	  	</c:if>
+	  	<c:if test="${empty member.user_thumbnail && empty member_thumb }">
+	  		<a href="#" id="thumbfile"><i class="fas fa-user-plus" style="font-size:2em;"></i></a>
+	  	</c:if>
+	  	
+	  	<c:if test="${empty member.user_thumbnail && empty member_thumb }">
+		  	<div>
+		  		<form name="thumbnailForm"  action="/user/thumbnail" method="POST"  enctype="multipart/form-data">
+		  				 <input type="hidden" name="user_id" value="${member.user_id}"/>
+	             <input type="file" name="thumbnail_file" id="thumbnail_file"/>
+	             
+	             <div id="buttonThumnArea">
+	             	<a href='#' id='thumbnailBtn'>썸네일을 올려보세요.</a>
+	             </div>
+	
+	         </form>
+		  	</div>
+	  	</c:if>
+	  	<c:if test="${!empty member_thumb || !empty member.user_thumbnail}">
+	  		<form name="thumbnailForm"  action="/user/thumbnail" method="POST"  enctype="multipart/form-data">
+		  				 <input type="hidden" name="user_id" value="${member.user_id}"/>
+	             <input type="file" name="thumbnail_file" id="thumbnail_file"/>
+         </form>
+          <div id="buttonThumnArea">
+           	<a href='#' id='thumbnailBtn'></a>
+           </div>
+	  	</c:if>
+	  	
+	  	
 	  	<br/>
-	  	<div style="margin-bottom:20%;">${member.user_email}</div>
+	  	<div style="margin-bottom:10%;">${member.user_email}</div>
 	  	<a href="/user/logout">Logout</a>
+	 
 	  </div>
 	  </c:if>
 	  <c:if test="${empty member}">
@@ -101,7 +137,7 @@ html.open {
 	  <c:if test="${!empty member}">
 	  <ul class="nav nav-sidebar">
 	    <li class="active"><a href="/board/write">글쓰기 <span class="sr-only">(current)</span></a></li>
-	    <li><a href="/board/list?user_id=${member.user_id}">기록</a></li>
+	    <li><a href="/board/list?num=1&user_id=${member.user_id}">기록</a></li>
 	  </ul>
 	  </c:if>
 	  <div style="margin:20%;">
@@ -121,11 +157,15 @@ html.open {
 			<div class="col-xs-4"><input type="text" class="form-control"/></div><input  TYPE="IMAGE" alt="ss" src="/resources/images/search.png" style="opacity: 0.5;" >
 		</div>
 	</c:if>
+
 	<div style="margin: 5%;"></div>
+
 </div>
 
 
 <script>
+
+/* 이미지 슬라이드 이벤트 */
 $(function(){
 	// 이미지 슬라이드 컨트롤를 사용하기 위해서는 carousel를 실행해야한다.
 	$('#carousel-example-generic').carousel({
@@ -141,6 +181,9 @@ $(function(){
 	});
 });
 
+
+
+/* 네비 게이션 */
 $(".btn").click(function() {
   $("#menu,.page_cover,html").addClass("open");
   window.location.hash = "#open";
@@ -152,5 +195,55 @@ window.onhashchange = function() {
   }
 };
 
+
+
+
+/*썸네일 사진 저장 이벤트*/
+$('#thumbnailBtn').click(function() {
+	
+	if(!$('input[name=thumbnail_file]').val()) {
+		alert("아이콘을 눌러 파일을 선택해보세요.");
+		return false;
+	}
+	$('form[name=thumbnailForm]').submit();
+	
+});
+
+
+/*파일 업로드 CSS 우회*/
+$('#thumbfile').click(function (e) {
+	e.preventDefault();
+	$('#thumbnail_file').click();
+	
+});
+
+
+/*사진을 찾아오면 버튼 생성*/
+$("#thumbnail_file").change(function(e){
+	$("#thumbnailBtn").empty();
+	$("#thumbnailBtn").append("저장하기");
+ 
+
+});
+
+
+
+
+
+
+/*
+$('#thumbPopBtn').on("click", function() {
+    //var user_id = $("#make_date").val(); //화면의 파라미터 가져오기
+    var popupWidth = 400;
+		var popupHeight = 300;
+		var popupX = (window.screen.width / 4) - (popupWidth / 2);
+		// 만들 팝업창 width 크기의 1/2 만큼 보정값으로 빼주었음
+		var popupY= (window.screen.height / 3) - (popupHeight / 2);
+		// 만들 팝업창 height 크기의 1/2 만큼 보정값으로 빼주었음
+		window.open("/user/thumbPop","_blank"
+		,'toolbar=yes,menubar=yes,scrollbars=no,height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY).focus();
+
+});
+*/
 
 </script>

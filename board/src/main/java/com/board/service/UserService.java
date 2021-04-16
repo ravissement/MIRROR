@@ -14,4 +14,6 @@ public interface UserService {
 	//로그인
 	public int idCheck(String id) throws Exception;
 	
+	//썸네일
+	public void thumbnail(UserVO vo) throws Exception;
 }

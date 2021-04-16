@@ -27,4 +27,9 @@ public class UserServiceImpl implements UserService {
 		return dao.idCheck(id);
 	}
 
+	@Override
+	public void thumbnail(UserVO vo) throws Exception {
+		dao.thumbnail(vo);
+	}
+
 }

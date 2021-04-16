@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<%@ page session="true" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,13 +26,12 @@
 
 <%@ include file="../include/header.jsp" %>
 
-<c:if test="${!empty  writeMessage}">
+<c:if test="${!empty writeMessage}">
 	<script>
 		alert('${writeMessage}');
 		location.href="/";
 	</script>
 </c:if>
-
 
 <div class="container">
 	<form name="wform" method="post" class="form-signin" style="margin-top:50px;">
@@ -47,7 +47,7 @@
 	</div>
 	<hr/>
 	<div style="margin-top:3%;">
-		<textarea cols="50" rows="5" name="content" class="writeContent" id="content" class="form-control" placeholder="It's your mirror.." maxlength="10000000"></textarea>
+		<textarea style="width:100%; height:100%;" rows="30" name="content" class="writeContent" id="content" class="form-control" placeholder="It's your mirror.." maxlength="10000000"></textarea>
 	</div>
 	
 	</form>
@@ -56,8 +56,10 @@
 <script type="text/javascript">
 
 
-var textEle = $('textarea');
+//var textEle = $('textarea');
 
+//adjustHeight();
+/*
 textEle.on('keyup', function() {
   adjustHeight();
 });
@@ -68,7 +70,7 @@ function adjustHeight() {
   var textEleHeight = textEle.prop('scrollHeight');
   textEle.css('height', textEleHeight);
 };
-
+*/
 $('#writeBtn').click(function(){
 	
 	var myform = document.forms["wform"];

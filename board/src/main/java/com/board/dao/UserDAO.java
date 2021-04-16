@@ -13,5 +13,7 @@ public interface UserDAO {
 	
 	//중복아이디 체크
 	public int idCheck(String id) throws Exception;
-
+	
+	//썸네일
+	public void thumbnail(UserVO vo) throws Exception;
 }

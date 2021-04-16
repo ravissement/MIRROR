@@ -27,8 +27,8 @@
 
 <%@ include file="../include/header.jsp" %>
 
-<div class="container">
 
+<div class="container">
 	
 	<table class="table" style="margin-top:50px;">
 		<tbody>
@@ -47,6 +47,56 @@
 			</c:forEach>
 		</tbody>
 	</table>
+ 	
+	
 </div>
+
+	
+
 </body>
+
+<script type="text/javascript">
+var listWritepage = 1;
+//스크롤 발생 이벤트 처리(무한 스코롤)
+$(window).scroll(function(){
+	
+	
+	if ( $(window).scrollTop()  == $(document).height() - $(window).height()) {
+		
+		listWritepage += 1;
+    console.log(listWritepage);    
+		
+ 
+    
+		$.ajax({
+         url: '/board/listAjax?num='+listWritepage+'&user_id=${member.user_id}',
+         type: 'POST',
+         dataType : 'json',
+         //contentType: "application/json",
+         success: function(data){
+             console.log(data[0].title);
+             
+             var str = "";
+             
+             
+             
+             
+             
+             
+         },
+					error:function(request,status,error){
+						alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+					}
+     })
+	}
+
+
+
+});
+
+
+
+
+</script>
+
 </html>

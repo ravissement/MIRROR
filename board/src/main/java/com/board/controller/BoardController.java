@@ -31,14 +31,55 @@ public class BoardController {
 	
 	//게시물 목록
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public void getList(Model model, @RequestParam("user_id") String user_id) throws Exception {
+	public void getList(Model model, @RequestParam("user_id") String user_id, @RequestParam("num") int num, 
+			@RequestParam(value = "searchType", required = false, defaultValue = "title") String searchType,
+			@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword) throws Exception {
+		
+		Page page = new Page();
+		
+		
+		page.setNum(num);
+		page.setCount(service.userSearchCount(searchType, keyword, user_id));  
+		
+		
+		page.setSearchType(searchType);
+		page.setKeyword(keyword);
 		
 		List<BoardVO> list = null;
-		list = service.list(user_id);
+		list = service.userList(page.getDisplayPost(), page.getPostNum(), searchType, keyword, user_id);
 		
 		model.addAttribute("list", list);
-		model.addAttribute("nav", "noSearch");
+		//model.addAttribute("nav", "noSearch");
 	}
+	
+	
+	//게시물 목록 무한 스크롤
+	@ResponseBody
+	@RequestMapping(value = "/listAjax", method = RequestMethod.POST)
+	public Object getListAjax(Model model, @RequestParam("user_id") String user_id, @RequestParam("num") int num, 
+			@RequestParam(value = "searchType", required = false, defaultValue = "title") String searchType,
+			@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword) throws Exception {
+		
+		Page page = new Page();
+		
+		
+		page.setNum(num);
+		page.setCount(service.userSearchCount(searchType, keyword, user_id));  
+		
+		
+		page.setSearchType(searchType);
+		page.setKeyword(keyword);
+		
+		List<BoardVO> list = null;
+		list = service.userList(page.getDisplayPost(), page.getPostNum(), searchType, keyword, user_id);
+		
+		//model.addAttribute("list", list);
+		
+		
+		return list; 
+		//model.addAttribute("nav", "noSearch");
+	}
+	
 	
 	//게시물 작성
 	@RequestMapping(value ="/write", method = RequestMethod.GET)

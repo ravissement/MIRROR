@@ -10,6 +10,7 @@ public class UserVO {
 	user_id VARCHAR(50)	NOT NULL,
 	user_pw	BLOB 	NOT NULL,
 	user_name VARCHAR(20)	NOT NULL,
+	user_thumbnail VARCHAR(500)	NOT NULL,
 	user_phone	BLOB 	NOT NULL,
 	user_email	BLOB 	NOT NULL,
 	regDate	TIMESTAMP	DEFAULT NOW()
@@ -24,6 +25,8 @@ public class UserVO {
 	private String user_name;
 	private String user_phone;
 	private String user_email;
+	private String ori_thumbnail;
+	private String user_thumbnail;
 	private Date regDate;
 	
 	public int getUno() {
@@ -67,6 +70,18 @@ public class UserVO {
 	}
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
+	}
+	public String getUser_thumbnail() {
+		return user_thumbnail;
+	}
+	public void setUser_thumbnail(String user_thumbnail) {
+		this.user_thumbnail = user_thumbnail;
+	}
+	public String getOri_thumbnail() {
+		return ori_thumbnail;
+	}
+	public void setOri_thumbnail(String ori_thumbnail) {
+		this.ori_thumbnail = ori_thumbnail;
 	}
 	
 	
