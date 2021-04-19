@@ -75,4 +75,14 @@ public class BoardServiceImpl implements BoardService {
 		return dao.userList(displayPost, postNum, searchType, keyword, user_id);
 	}
 
+	@Override
+	public int modifyThumb(BoardVO vo) throws Exception {
+		return dao.modifyThumb(vo);
+	}
+
+	@Override
+	public int writeThumb(BoardVO vo) throws Exception {
+		return dao.writeThumb(vo);
+	}
+
 }

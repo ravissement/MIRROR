@@ -2,6 +2,7 @@ package com.board.domain;
 
 import java.util.Date;
 
+
 public class BoardVO {
 /*
 CREATE TABLE tbl_board(
@@ -23,6 +24,8 @@ COMMIT;
 	private String subTitle;
 	private String content;
 	private String writer;
+	private String boardThumbnail;
+	private String ori_boardThumbnail;
 	private Date regDate;
 	private int viewCnt;
 	
@@ -73,6 +76,18 @@ COMMIT;
 	}
 	public void setSubTitle(String subTitle) {
 		this.subTitle = subTitle;
+	}
+	public String getBoardThumbnail() {
+		return boardThumbnail;
+	}
+	public void setBoardThumbnail(String boardThumbnail) {
+		this.boardThumbnail = boardThumbnail;
+	}
+	public String getOri_boardThumbnail() {
+		return ori_boardThumbnail;
+	}
+	public void setOri_boardThumbnail(String ori_boardThumbnail) {
+		this.ori_boardThumbnail = ori_boardThumbnail;
 	}
 	
 }

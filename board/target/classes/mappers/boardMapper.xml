@@ -7,7 +7,7 @@
 	<!-- 게시물 목록 + 페이징 + 검색 -->
 	<select id="userList" parameterType="hashMap" resultType="com.board.domain.BoardVO">
 		 select
-		  (select COUNT(*) from board.tbl_reply where bno = board.tbl_board.bno) as cnt, bno, title, writer, regDate, viewCnt
+		  (select COUNT(*) from board.tbl_reply where bno = board.tbl_board.bno) as cnt, bno, title, subTitle, content, ori_boardThumbnail, boardThumbnail, writer, regDate, viewCnt
 		 from board.tbl_board
 		 
 		 <if test='searchType.equals("title")'>
@@ -57,9 +57,6 @@
 	</select>
 	
 	
-	
-	
-	
 	<!-- 게시물 총 갯수 + 검색 적용 -->
 	<select id="searchCount" parameterType="hashMap" resultType="int">
 		select count(bno) from board.tbl_board
@@ -99,11 +96,18 @@
 			board.tbl_board(title, subTitle, content, writer)
 				values(#{title}, #{subTitle}, #{content}, #{writer})
 	</insert>
+
+	<!--썸네일 작성 -->
+	<insert id="writeThumb" parameterType="com.board.domain.BoardVO" useGeneratedKeys="true" keyProperty="bno">
+		insert into
+			board.tbl_board(writer, ori_boardThumbnail, boardThumbnail)
+				values(#{writer}, #{ori_boardThumbnail}, #{boardThumbnail})
+	</insert>
 	
 	<!-- 게시물 조회 -->
 	<select id="view" parameterType="int" resultType="com.board.domain.BoardVO">
 		select
-			bno, title, subTitle, content, writer, regDate, viewCnt
+			bno, title, subTitle, content, ori_boardThumbnail, boardThumbnail, writer, regDate, viewCnt
 		from
 			board.tbl_board
 		where
@@ -118,6 +122,15 @@
 				subTitle = #{subTitle},
 				content = #{content},
 				writer = #{writer}
+			where bno = #{bno}
+	</update>
+	
+	<!-- 게시물 수정 -->
+	<update id="modifyThumb" parameterType="com.board.domain.BoardVO">
+		update board.tbl_board
+			set
+				ori_boardThumbnail = #{ori_boardThumbnail},
+				boardThumbnail = #{boardThumbnail},
 			where bno = #{bno}
 	</update>
 	

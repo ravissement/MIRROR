@@ -154,7 +154,10 @@ html.open {
 	</div>
 	<c:if test="${nav ne 'noSearch'}">
 		<div style="margin-left:40%; line-height:1.8em; padding:10px 20px 0 0;">
-			<div class="col-xs-4"><input type="text" class="form-control"/></div><input  TYPE="IMAGE" alt="ss" src="/resources/images/search.png" style="opacity: 0.5;" >
+			<div class="col-xs-4">
+				<form name="searchForm">
+					<input type="text" name="keyword" class="form-control"/></div><input  TYPE="IMAGE" alt="ss" src="/resources/images/search.png" style="opacity: 0.5;" id="searchBtnGo" >
+				</form>
 		</div>
 	</c:if>
 

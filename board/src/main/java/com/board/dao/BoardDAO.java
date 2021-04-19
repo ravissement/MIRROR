@@ -10,6 +10,9 @@ public interface BoardDAO {
 	//게시물 작성
 	public void write(BoardVO vo) throws Exception;
 
+	//게시물 작성(썸네일 포함)
+	public int writeThumb(BoardVO vo) throws Exception;
+
 	//게시물 조회
 	public BoardVO view(int bno) throws Exception;
 	
@@ -38,4 +41,7 @@ public interface BoardDAO {
 	
 	//게시물 총 갯수 + 검색 적용 + 유저 개인
 	public int userSearchCount(String searchType, String keyword, String user_id) throws Exception;
+	
+	//썸네일 수정
+	public int modifyThumb(BoardVO vo) throws Exception;
 }

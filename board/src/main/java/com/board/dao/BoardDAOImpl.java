@@ -85,8 +85,6 @@ public class BoardDAOImpl implements BoardDAO {
 		
 		return sql.selectOne(namespace + ".searchCount", data);
 	}
-
-	
 	
 	@Override
 	public int userSearchCount(String searchType, String keyword, String user_id) throws Exception {
@@ -114,6 +112,16 @@ public class BoardDAOImpl implements BoardDAO {
 		data.put("user_id", user_id);
 		
 		return sql.selectList(namespace + ".userList", data);
+	}
+
+	@Override
+	public int writeThumb(BoardVO vo) throws Exception {
+		return sql.insert(namespace + ".writeThumb", vo);
+	}
+
+	@Override
+	public int modifyThumb(BoardVO vo) throws Exception {
+		return sql.update(namespace + ".modifyThumb", vo);
 	}
 	
 	

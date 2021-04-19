@@ -1,15 +1,19 @@
 package com.board.controller;
 
+import java.io.File;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 //import com.board.dao.BoardDAO;
 import com.board.domain.BoardVO;
@@ -18,6 +22,7 @@ import com.board.domain.ReplyVO;
 //import com.board.service.BoardService;
 import com.board.service.BoardService;
 import com.board.service.ReplyService;
+import com.board.utils.UploadFileUtils;
 
 @Controller
 @RequestMapping("/board/*")
@@ -28,6 +33,10 @@ public class BoardController {
 	
 	@Inject
 	private ReplyService replyService;
+	
+	
+	@Resource(name="uploadPath")
+	private String uploadPath;
 	
 	//게시물 목록
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -66,7 +75,6 @@ public class BoardController {
 		page.setNum(num);
 		page.setCount(service.userSearchCount(searchType, keyword, user_id));  
 		
-		
 		page.setSearchType(searchType);
 		page.setKeyword(keyword);
 		
@@ -74,7 +82,8 @@ public class BoardController {
 		list = service.userList(page.getDisplayPost(), page.getPostNum(), searchType, keyword, user_id);
 		
 		//model.addAttribute("list", list);
-		
+		//DateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd");
+		//String today = sdFormat.format(list.toString());
 		
 		return list; 
 		//model.addAttribute("nav", "noSearch");
@@ -89,10 +98,56 @@ public class BoardController {
 	
 	//저장
 	@RequestMapping(value="/write", method = RequestMethod.POST)
-	public void postWrite(BoardVO vo, Model model) throws Exception {
-		service.write(vo);
+	public void postWrite(BoardVO vo,  Model model) throws Exception {
+		
+		
+		BoardVO testVO = service.view(vo.getBno());
+		if(testVO == null) {
+			service.write(vo);
+		}else {
+			service.modify(vo);
+		}
+		
 		model.addAttribute("writeMessage", "정상적으로 저장되었습니다.");
 		
+	}
+	
+	//Ajax 이미지 썸네일
+	@ResponseBody
+	@RequestMapping(value="/ajaxThumbnail", method= RequestMethod.POST)
+	public Object ajaxThumb(@RequestParam(value = "boardThumbnail", required = false) MultipartFile boardThumbnail, BoardVO vo) throws Exception {
+		System.out.println(boardThumbnail);
+		String imgUploadPath = uploadPath + File.separator + "thumbnail";
+		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+		String fileName = null;
+		//String originalFilename = vo.getUser_id() + "_thumbnail.png";
+		if(boardThumbnail != null) {
+			fileName = UploadFileUtils.fileUpload(imgUploadPath, boardThumbnail.getOriginalFilename(), boardThumbnail.getBytes(), ymdPath); 
+		} else {
+			fileName = uploadPath + File.separator + "thumbnail" + File.separator + "none.png";
+		}
+		
+		
+		vo.setOri_boardThumbnail(File.separator + "boardThumbnail" + ymdPath + File.separator + fileName);
+		vo.setBoardThumbnail(File.separator + "boardThumbnail" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
+		
+		
+		BoardVO testVO = service.view(vo.getBno());
+		
+		if(testVO == null) {
+			service.writeThumb(vo);
+			vo = service.view(vo.getBno());
+			
+		}else {
+			service.modifyThumb(vo);
+			vo = service.view(vo.getBno());
+			
+		}
+		
+		//ObjectMapper mapper = new ObjectMapper();
+		//String jsonString = mapper.writeValueAsString(vo);
+		//System.out.println(jsonString);
+		return vo;
 	}
 	
 	//게시물 조회
@@ -102,6 +157,7 @@ public class BoardController {
 		BoardVO vo = service.view(bno);
 		model.addAttribute("view", vo);
 		model.addAttribute("nav", "noSearch");
+		
 		//댓글 조회
 		List<ReplyVO> reply = null;
 		reply = replyService.list(bno);
@@ -129,7 +185,6 @@ public class BoardController {
 	public String getDelete(@RequestParam("bno") int bno) throws Exception {
 		
 		service.delete(bno);
-		
 		return "redirect:/board/list";
 	}
 	
