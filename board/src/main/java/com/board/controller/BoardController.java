@@ -1,19 +1,23 @@
 package com.board.controller;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 //import com.board.dao.BoardDAO;
 import com.board.domain.BoardVO;
@@ -148,6 +152,103 @@ public class BoardController {
 		//String jsonString = mapper.writeValueAsString(vo);
 		//System.out.println(jsonString);
 		return vo;
+	}
+	
+	//Ajax 이미지 썸네일 
+	@RequestMapping(value = "/ajaxThumbnailTest", method= {RequestMethod.POST, RequestMethod.GET})
+	@ResponseBody
+	public Object ajaxThumbTest(MultipartHttpServletRequest multipartRequest, BoardVO vo) throws Exception {
+		
+		
+		List<HashMap> fileArrayList = new ArrayList<HashMap>();
+	    HashMap fileHashMap;
+	 
+	 
+	    File dir = new File(uploadPath); //파일 저장 경로 확인, 없으면 만든다.
+	    if (!dir.exists()) {
+	        dir.mkdirs();
+	    }
+	 
+	    Iterator<String> itr =  multipartRequest.getFileNames(); //파일들을 Iterator 에 넣는다.
+	 
+	    while (itr.hasNext()) { //파일을 하나씩 불러온다.
+	 
+	        MultipartFile mpf = multipartRequest.getFile(itr.next());
+	 
+	 
+	        String originalFilename = mpf.getOriginalFilename(); //파일명
+	 
+	        String fileFullPath = uploadPath+ File.separator + "boardThumbnail"+ File.separator + originalFilename; //파일 전체 경로
+	 
+	        try {
+	            //파일 저장
+	            mpf.transferTo(new File(fileFullPath)); //파일저장
+	            
+	    		vo.setBoardThumbnail(File.separator + "boardThumbnail"+ File.separator + originalFilename);
+	    		vo.setOri_boardThumbnail(File.separator + "boardThumbnail"+ File.separator + originalFilename);
+	 
+	    		BoardVO testVO = service.view(vo.getBno());
+	    		
+	    		if(testVO == null) {
+	    			service.writeThumb(vo);
+	    			vo = service.view(vo.getBno());
+	    			
+	    		}else {
+	    			service.modifyThumb(vo);
+	    			vo = service.view(vo.getBno());
+	    			
+	    		}
+	 
+	        } catch (Exception e) {
+	            System.out.println("postTempFile_ERROR======>"+fileFullPath);
+	            e.printStackTrace();
+	        }
+	 
+	    }
+	 
+	   
+	 
+	    return vo;
+		/*
+		
+		Iterator<String> itr = request.getFileNames();
+		String imgUploadPath = uploadPath + File.separator + "thumbnail";
+		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+		String filename= null;
+		if(itr.hasNext()) {
+			MultipartFile mpf = request.getFile(itr.next());
+			System.out.println(mpf.getOriginalFilename() +" uploaded!");
+			System.out.println(mpf.getOriginalFilename().getBytes());
+			//byte[] sdf = mpf.getOriginalFilename().getBytes();
+			if(mpf.getName() != null) {
+				filename =  UploadFileUtils.fileUpload(imgUploadPath, mpf.getOriginalFilename(), mpf.getOriginalFilename().getBytes(), ymdPath); 
+				
+				
+			}else {
+				filename =  uploadPath + File.separator + "thumbnail" + File.separator + "none.png";
+			}
+			vo.setOri_boardThumbnail(File.separator + "boardThumbnail" + ymdPath + File.separator + filename);
+			vo.setBoardThumbnail(File.separator + "boardThumbnail" + ymdPath + File.separator + "s" + File.separator + "s_" + filename);
+			
+			BoardVO testVO = service.view(vo.getBno());
+			
+			if(testVO == null) {
+				service.writeThumb(vo);
+				vo = service.view(vo.getBno());
+				
+			}else {
+				service.modifyThumb(vo);
+				vo = service.view(vo.getBno());
+				
+			}
+			
+			return vo;
+		
+		}else {
+			return false;
+			
+		}
+		*/
 	}
 	
 	//게시물 조회

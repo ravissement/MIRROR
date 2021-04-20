@@ -23,7 +23,7 @@
 				<!-- Exclude Commons Logging in favor of SLF4j -->
 				<exclusion>
 					<groupId>commons-logging</groupId>
-					<artifactId>commons-logging</artifactId>
+					<artifactId>commons-logging</artifactId> 
 				 </exclusion>
 			</exclusions>
 		</dependency>
@@ -151,7 +151,12 @@
 		    <artifactId>commons-fileupload</artifactId>
 		    <version>1.4</version>
 		</dependency>
-		 
+	  <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>1.4</version>
+    </dependency>
+     
 		<!-- 파일관련 / 썸네일라이브러리 -->
 		<dependency>
 		    <groupId>org.imgscalr</groupId>
