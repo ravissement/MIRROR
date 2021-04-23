@@ -31,13 +31,18 @@
 .subTitleInput {border:none; width:100%; font-size: 1em;}
 .btnSort-set{ text-align:right; font-weight:bold; }
 .writerSide {padding: 5px;}
+.imgThumb { position: absolute; opacity: 0.6; position:absolute; top:0; left:0; width: 100%; height:100%; z-index: -100;}
+.imgThumb_in {width:100%; height:100%; object-fit: cover; border-radius: 50%;}
 </style>
 
 
 <%@ include file="../include/header.jsp" %>
-
 	
-	
+<div class="imgThumb">
+	<c:if test="${view.boardThumbnail != null}">
+		<img src="/resources/${view.boardThumbnail}" class="imgThumb_in" />
+	</c:if>
+</div>	
 	
 <div class="container">
 	
@@ -55,7 +60,7 @@
 	By ${view.writer}
 	</div>
 	<hr/>
-	<div style="margin:1%;">
+	<div style="overflow:hidden; word-break:break-all;">
 		${fn:replace(view.content, replaceChar, "<br/>")}
 	</div>
 	
@@ -130,12 +135,6 @@ document.getElementById("submitBtn").onclick = function () {
 	myform.submit();
 };
 
-//document.getElementById("modifyBtn").onclick = function () {
-	//var myform2 = document.forms["mform"];
-	//myform2.action = "/reply/modify";
-	//myform2.submit();
-	//alert("ok");
-//};
 
 function modify() {
 	

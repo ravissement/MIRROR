@@ -21,7 +21,8 @@
    text-overflow:ellipsis;
    white-space:nowrap;
 } 
-
+.imgThumb {width: 150px; height:150px;}
+.imgThumb_in {width:100%; height:100%; object-fit: cover;}
 </style>
 
 
@@ -43,12 +44,14 @@
 						</div><br/>
 						<span style="font-size:0.6em;"><fmt:formatDate value="${list.regDate}" pattern="yyyy-MM-dd" /></span>
 					</td>
+					<td class="imgThumb">
+						<c:if test="${list.boardThumbnail != null}">
+							<img src="/resources/${list.boardThumbnail}" class="imgThumb_in" />
+						</c:if>
+					</td>
 				</tr>
 			</c:forEach>
-			<c:if test="">
 			
-			
-			</c:if>
 		</tbody>
 	</table>
  	
@@ -62,33 +65,22 @@
 <script type="text/javascript">
 
 
-//$('.container').on('wheel', function() {
-//	  console.log("Scrolled!")
-//})
 
 var listWritepage = 1;
 var keyword = "";
 
-//스크롤 발생 이벤트 처리(무한 스코롤)
+
+/* 스크롤 감지 및 페이징 호출 */
 $(window).scroll(function(){
-	//console.log($(window).width()); //364
-	//console.log($(document).width()); //1000
-	//console.log($(window).height()); //441
-	//console.log("doc : "+$(document).height()); 
-	//console.log("scroll : "+$(document).scrollTop()); //1000
-	//console.log(typeof $(document).height())
-	//if ($(window).scrollTop()  == $(document).height() ) {
 	if ($(document).height() - $(window).scrollTop() == 1057) {	
 		listWritepage += 1;
-    //console.log(listWritepage);
- 		//console.log(keyword);
     pagingAjax(listWritepage, keyword);
 		
 	}
 
 });
 
-//timestamp Date-Format
+/* timestamp Date-Format */
 function getFormatDate(date){
     var year = date.getFullYear();              //yyyy
     var month = (1 + date.getMonth());          //M
@@ -98,7 +90,7 @@ function getFormatDate(date){
     return  year + '-' + month + '-' + day;
 }
 
-//null 값 공백 치환
+/* null 값 공백 치환 */
 function isEmpty(value){
     if(value == null || value.length === 0) {
            return "";
@@ -107,13 +99,14 @@ function isEmpty(value){
      }
 }
 
+
+/* paging Ajax 처리 - 무한 스크롤  */
 function pagingAjax(page, keywrod) {
 	keyword = getParameterByName('keyword');
 	$.ajax({
         url: '/board/listAjax?num='+page+'&user_id=${member.user_id}&keyword='+keyword,
         type: 'POST',
         dataType : 'json',
-        //contentType: "application/json",
         success: function(data){
         		
             var str = "";
@@ -132,6 +125,11 @@ function pagingAjax(page, keywrod) {
 											+			data[i].content
 											+			"</div><br/>"
 											+			"<span style='font-size:0.6em;'>"+formatReg+"</span>"
+											+			"</td>"
+											+     "<td class='imgThumb'>"
+												if(data[i].boardThumbnail != null) {
+											+			"<img src='/resources/'"+data[i].boardThumbnail+"' onerror='this.style.display='none'' class='imgThumb_in' /> "
+												}
 											+			"</td>"
 		             			+	"</tr>"
             		};
@@ -152,6 +150,7 @@ function pagingAjax(page, keywrod) {
 }
 
 
+/* 키워드 검색 */
 $('#searchBtnGo').click(function () {
 	
 	var newForm = $('form[name=searchForm]');
@@ -160,8 +159,6 @@ $('#searchBtnGo').click(function () {
 	newForm.appendTo('body');
 	newForm.action = "/board/list";
 	newForm.submit();	
-	//keyword = $('input[name=keyword]').val();
-	//pagingAjax(1, keywrod);
 	
 });
 

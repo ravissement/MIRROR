@@ -50,7 +50,6 @@ public class BoardController {
 		
 		Page page = new Page();
 		
-		
 		page.setNum(num);
 		page.setCount(service.userSearchCount(searchType, keyword, user_id));  
 		
@@ -74,7 +73,6 @@ public class BoardController {
 			@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword) throws Exception {
 		
 		Page page = new Page();
-		
 		
 		page.setNum(num);
 		page.setCount(service.userSearchCount(searchType, keyword, user_id));  
@@ -131,10 +129,8 @@ public class BoardController {
 			fileName = uploadPath + File.separator + "thumbnail" + File.separator + "none.png";
 		}
 		
-		
 		vo.setOri_boardThumbnail(File.separator + "boardThumbnail" + ymdPath + File.separator + fileName);
 		vo.setBoardThumbnail(File.separator + "boardThumbnail" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
-		
 		
 		BoardVO testVO = service.view(vo.getBno());
 		
@@ -172,16 +168,11 @@ public class BoardController {
 	    Iterator<String> itr =  multipartRequest.getFileNames(); //파일들을 Iterator 에 넣는다.
 	 
 	    while (itr.hasNext()) { //파일을 하나씩 불러온다.
-	 
 	        MultipartFile mpf = multipartRequest.getFile(itr.next());
-	 
-	 
 	        String originalFilename = mpf.getOriginalFilename(); //파일명
-	 
 	        String fileFullPath = uploadPath+ File.separator + "boardThumbnail"+ File.separator + originalFilename; //파일 전체 경로
 	 
 	        try {
-	            //파일 저장
 	            mpf.transferTo(new File(fileFullPath)); //파일저장
 	            
 	    		vo.setBoardThumbnail(File.separator + "boardThumbnail"+ File.separator + originalFilename);
@@ -205,12 +196,9 @@ public class BoardController {
 	        }
 	 
 	    }
-	 
-	   
-	 
 	    return vo;
+	    
 		/*
-		
 		Iterator<String> itr = request.getFileNames();
 		String imgUploadPath = uploadPath + File.separator + "thumbnail";
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
@@ -235,19 +223,15 @@ public class BoardController {
 			if(testVO == null) {
 				service.writeThumb(vo);
 				vo = service.view(vo.getBno());
-				
 			}else {
 				service.modifyThumb(vo);
 				vo = service.view(vo.getBno());
-				
 			}
-			
 			return vo;
-		
 		}else {
 			return false;
-			
 		}
+		
 		*/
 	}
 	
@@ -293,50 +277,6 @@ public class BoardController {
 	@RequestMapping(value="/listPage", method = RequestMethod.GET)
 	public void getListPage(Model model, @RequestParam("num") int num) throws Exception {
 		
-		/*
-		//게시물 총 갯수
-		int count = service.count();
-		
-		//한 페이지에 출력할 게시물 개수
-		int postNum = 10;
-		
-		//하단 페이징 번호 ([게시물 총 갯수 / 한 페이지에 출력할 갯수]의 올림)
-		int pageNum = (int)Math.ceil((double)count/postNum);
-		
-		//출력할 게시물
-		int displayPost = (num - 1) * postNum;
-		
-		// 한번에 표시할 페이징 번호의 갯수
-		int pageNum_cnt = 10;
-
-		// 표시되는 페이지 번호 중 마지막 번호
-		int endPageNum = (int)(Math.ceil((double)num / (double)pageNum_cnt) * pageNum_cnt);
-
-		// 표시되는 페이지 번호 중 첫번째 번호
-		int startPageNum = endPageNum - (pageNum_cnt - 1);
-		
-		// 마지막 번호 재계산
-		int endPageNum_tmp = (int)(Math.ceil((double)count / (double)pageNum_cnt));
-		 
-		if(endPageNum > endPageNum_tmp) {
-			endPageNum = endPageNum_tmp;
-		}
-		
-		boolean prev = startPageNum == 1 ? false : true;
-		boolean next = endPageNum * pageNum_cnt >= count ? false : true;
-		*/
-
-		/*
-		model.addAttribute("pageNum", page.getPageNum());
-		
-		// 시작 및 끝 번호
-		model.addAttribute("startPageNum", page.getStartPageNum());
-		model.addAttribute("endPageNum", page.getEndPageNum());
-
-		// 이전 및 다음 
-		model.addAttribute("prev", page.getPrev());
-		model.addAttribute("next", page.getNext());
-		*/
 		
 		Page page = new Page();
 		

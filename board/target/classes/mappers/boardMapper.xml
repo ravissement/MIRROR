@@ -126,11 +126,11 @@
 	</update>
 	
 	<!-- 게시물 수정 -->
-	<update id="modifyThumb" parameterType="com.board.domain.BoardVO">
+	<update id="modifyThumb" parameterType="com.board.domain.BoardVO" useGeneratedKeys="true" keyProperty="bno">
 		update board.tbl_board
 			set
 				ori_boardThumbnail = #{ori_boardThumbnail},
-				boardThumbnail = #{boardThumbnail},
+				boardThumbnail = #{boardThumbnail}
 			where bno = #{bno}
 	</update>
 	
