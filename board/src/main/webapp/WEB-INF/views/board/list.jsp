@@ -25,14 +25,14 @@
 .imgThumb_in {width:100%; height:100%; object-fit: cover;}
 </style>
 
-
 <%@ include file="../include/header.jsp" %>
-
 
 <div class="container">
 	
 	<table class="table" style="margin-top:50px;" id="userListViewTable">
+		
 		<tbody>
+			
 			<c:forEach items="${list}" var="list">
 				<tr>
 					<td style="line-height:1.5em;">
@@ -45,17 +45,17 @@
 						<span style="font-size:0.6em;"><fmt:formatDate value="${list.regDate}" pattern="yyyy-MM-dd" /></span>
 					</td>
 					<td class="imgThumb">
-						<c:if test="${list.boardThumbnail != null}">
+						<!--<c:if test="${!empty list.boardThumbnail}">
 							<img src="/resources/${list.boardThumbnail}" class="imgThumb_in" />
-						</c:if>
+						</c:if>-->
 					</td>
 				</tr>
-			</c:forEach>
 			
+			</c:forEach>
 		</tbody>
-	</table>
- 	
 	
+	</table>
+
 </div>
 
 	

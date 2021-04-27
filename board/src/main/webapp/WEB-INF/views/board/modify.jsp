@@ -21,7 +21,7 @@
 	.writeContent {width:99%; overflow:hidden; border:none; font-size: 1.3em; background-color:transparent;}
 	.writeContent:focus {outline:none; }
 	.btnSort-set{ text-align:right; font-weight:bold; line-height: 2em; font-size: 1em;}
-	.imgThumb { position: absolute; opacity: 0.6; position:absolute; top:0; left:0; width: 100%; height:100%; z-index: -100;}
+	.imgThumb { position: absolute; opacity: 0.4; position:absolute; top:0; left:0; width: 100%; height:100%; z-index: -100;}
 	.imgThumb_in {width:100%; height:100%; object-fit: cover; border-radius: 50%;}
 
 </style>
@@ -47,7 +47,6 @@
 		<input type="hidden" name="writer" value="${member.user_id}" />
 		
 		<input type="hidden" name="bno" value="${view.bno}" />
-		<div class="container">
 		<div>
 			<input type="text" name="title" placeholder="제목을 입력하세요." class="titleInput" maxlength="49" value="${view.title}">
 		</div>
@@ -60,10 +59,7 @@
 		<hr/>
 		<div style="margin-top:3%;">
 				<textarea name="content" style="width:100%; height:100%;" class="writeContent" id="content" class="form-control" placeholder="It's your mirror.." maxlength="10000000">${view.content}</textarea>
-			</div>
-		
-	</div>
-	
+		</div>
 	</form>
 </div>
 <script type="text/javascript">

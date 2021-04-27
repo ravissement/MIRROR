@@ -44,4 +44,10 @@ public interface BoardService {
 
 	//게시물 총 갯수 + 검색 적용 + 유저 개인
 	public int modifyThumb(BoardVO vo) throws Exception;
+	
+	
+	
+	
+	//홈 리스트
+	public List<BoardVO> homeList(int limit) throws Exception;
 }

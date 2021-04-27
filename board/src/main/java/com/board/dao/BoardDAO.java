@@ -44,4 +44,9 @@ public interface BoardDAO {
 	
 	//썸네일 수정
 	public int modifyThumb(BoardVO vo) throws Exception;
+	
+	
+	
+	//홈 리스트
+	public List<BoardVO> homeList(int limit) throws Exception;
 }

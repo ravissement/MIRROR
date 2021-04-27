@@ -77,13 +77,11 @@ $('#writeBtn').click(function(){
 	myform.submit();
 });
 
-
 /*파일 업로드 CSS Cover*/
 $('#thumbWriteFileTest_click').click(function (e) {
 	e.preventDefault();
 	$('#boardThumbnailTest').click();
 });
-
 
 /*ajax 이미지 업로드*/
 function ajaxThumbnail() {
@@ -91,12 +89,6 @@ function ajaxThumbnail() {
   var data = new FormData(form);
 	
   if($('input[name=bno]').val()){
-	  /*
-	  var input1 = document.createElement('input');
-	  input1.setAttribute("type", "hidden");
-	  input1.setAttribute("name", "bno"); 
-	  input1.setAttribute("value", $('input[name=bno]').val());
-	  */
 	  data.append("bno", $('input[name=bno]').val());
 	}
   

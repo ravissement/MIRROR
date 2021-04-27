@@ -31,8 +31,9 @@
 .subTitleInput {border:none; width:100%; font-size: 1em;}
 .btnSort-set{ text-align:right; font-weight:bold; }
 .writerSide {padding: 5px;}
-.imgThumb { position: absolute; opacity: 0.6; position:absolute; top:0; left:0; width: 100%; height:100%; z-index: -100;}
+.imgThumb { position: absolute; opacity: 0.4; position:absolute; top:0; left:0; width: 100%; height:100%; z-index: -100;}
 .imgThumb_in {width:100%; height:100%; object-fit: cover; border-radius: 50%;}
+.fontString {font-weight: bold;}
 </style>
 
 
@@ -75,8 +76,8 @@
 				<p style="font-weight:bold;">${reply.writer} / <fmt:formatDate value="${reply.regDate}" pattern="yyyy-MM-dd"/></p>
 				<p>${reply.content}</p>
 			</div>		
-			<a href="/reply/delete?bno=${view.bno}&rno=${reply.rno}" onclick="return confirm('Are you sure?')">삭제</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="#" onclick="checkModify(${view.bno}, ${reply.rno}, '${reply.writer}', '${reply.content}')">댓글 수정</a>
+			<a href="/reply/delete?bno=${view.bno}&rno=${reply.rno}" onclick="return confirm('Are you sure?')" class="fontString">삭제</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="#" onclick="checkModify(${view.bno}, ${reply.rno}, '${reply.writer}', '${reply.content}')" class="fontString">댓글 수정</a>
 		</li>
 		<br />
 	</c:forEach>
@@ -87,7 +88,7 @@
 			<tr>
 				<th style="width:7%;">작성자</th> 
 				<td style="width:15%;"><input type="text" name="writer" id="rwriter" class="form-control" /></td>
-				<td style="text-align:right;"><a href="#" id="submitBtn">댓글 작성</a></td>
+				<td style="text-align:right;"><a href="#" id="submitBtn" class="fontString">댓글 작성</a></td>
 			</tr>
 			<tr>
 				<td colspan="3"><textarea rows="5" cols="50" name="content" id="rcontent" class="form-control"></textarea></td>

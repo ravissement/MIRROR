@@ -125,4 +125,16 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 	
 	
+	
+	
+
+	@Override
+	public List<BoardVO> homeList(int limit) throws Exception {
+		return sql.selectList(namespace + ".homeList", limit);
+	}
+	
+	
+	
+	
+	
 }

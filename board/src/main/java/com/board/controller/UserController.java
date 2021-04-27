@@ -2,6 +2,7 @@ package com.board.controller;
 
 
 import java.io.File;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.board.domain.BoardVO;
 import com.board.domain.UserVO;
+import com.board.service.BoardService;
 import com.board.service.UserService;
 import com.board.utils.UploadFileUtils;
 
@@ -42,6 +45,7 @@ public class UserController {
 		service.join(vo);
 		model.addAttribute("userJoinName", vo.getUser_name());
 		model.addAttribute("nav", "noSearch");
+		
 		
 		return "home";
 	}
@@ -76,7 +80,7 @@ public class UserController {
 		
 	//로그아웃
 	@RequestMapping(value ="/logout", method = RequestMethod.GET)
-	public String getLoout(HttpServletRequest req) throws Exception {
+	public String getLoout(HttpServletRequest req, Model model) throws Exception {
 
 		HttpSession session = req.getSession();
 		session.removeAttribute("member");
@@ -98,7 +102,7 @@ public class UserController {
 		
 	}
 	
-	
+	//프로필 썸네일 저장
 	@RequestMapping(value ="/thumbnail", method = RequestMethod.POST)
 	public String getThumbnail(UserVO vo, @RequestParam(value = "thumbnail_file", required = false) MultipartFile file, Model model) throws Exception {
 		

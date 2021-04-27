@@ -197,42 +197,7 @@ public class BoardController {
 	 
 	    }
 	    return vo;
-	    
-		/*
-		Iterator<String> itr = request.getFileNames();
-		String imgUploadPath = uploadPath + File.separator + "thumbnail";
-		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
-		String filename= null;
-		if(itr.hasNext()) {
-			MultipartFile mpf = request.getFile(itr.next());
-			System.out.println(mpf.getOriginalFilename() +" uploaded!");
-			System.out.println(mpf.getOriginalFilename().getBytes());
-			//byte[] sdf = mpf.getOriginalFilename().getBytes();
-			if(mpf.getName() != null) {
-				filename =  UploadFileUtils.fileUpload(imgUploadPath, mpf.getOriginalFilename(), mpf.getOriginalFilename().getBytes(), ymdPath); 
-				
-				
-			}else {
-				filename =  uploadPath + File.separator + "thumbnail" + File.separator + "none.png";
-			}
-			vo.setOri_boardThumbnail(File.separator + "boardThumbnail" + ymdPath + File.separator + filename);
-			vo.setBoardThumbnail(File.separator + "boardThumbnail" + ymdPath + File.separator + "s" + File.separator + "s_" + filename);
-			
-			BoardVO testVO = service.view(vo.getBno());
-			
-			if(testVO == null) {
-				service.writeThumb(vo);
-				vo = service.view(vo.getBno());
-			}else {
-				service.modifyThumb(vo);
-				vo = service.view(vo.getBno());
-			}
-			return vo;
-		}else {
-			return false;
-		}
-		
-		*/
+	   
 	}
 	
 	//게시물 조회

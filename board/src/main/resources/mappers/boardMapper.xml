@@ -4,6 +4,16 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.board.mappers.board">
 	
+	
+	<!-- 홈 리스트 -->
+	<select id="homeList" parameterType="int" resultType="com.board.domain.BoardVO">
+		select  
+			bno, title, subTitle, content, boardThumbnail, ori_boardThumbnail, writer, regDate, viewCnt
+		from board.tbl_board
+		order by regDate DESC LIMIT #{limit}
+	</select>
+	
+	
 	<!-- 게시물 목록 + 페이징 + 검색 -->
 	<select id="userList" parameterType="hashMap" resultType="com.board.domain.BoardVO">
 		 select
@@ -89,6 +99,7 @@
 		order by regDate DESC
 		limit #{displayPost}, #{postNum}
 	</select>
+	
 
 	<!--게시물 작성 -->
 	<insert id="write" parameterType="com.board.domain.BoardVO" useGeneratedKeys="true" keyProperty="bno">

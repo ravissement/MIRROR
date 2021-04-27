@@ -11,46 +11,49 @@
 	<title>Home</title>
 </head>
 <body>
+<style>
+.imgThumb {height: 300px;}
+.imgThumb_in {width:90%; height:90%; object-fit: cover;}
+.text-space-use {text-overflow: display: inline-block; width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
 
+</style>
 <%@ include file="include/header.jsp" %>
 
 <div class="container" >
 	
-	<div class="jumbotron" >
-		<h1 style="color:white;">It's your MIRROR</h1>
+  <c:if test="${homeList ne null}">
+	<div class="row" style="height:500px;">
+	  <c:forEach items="${homeList}" var="homeList">
+		  <div class="col-lg-4 imgThumb">
+		    <h2 class="text-space-use">${homeList.title}</h2>
+		    <br />
+		    <p class="text-danger text-space-use">
+		    	${homeList.content}
+		    </p>
+		    <p><a href="/board/view?bno=${homeList.bno}">View details »</a></p>
+		    <img src="/resources/${homeList.boardThumbnail}" class="imgThumb_in"/>
+		  </div>
+		  <script>
+				console.log("${homeList.title}");
+			</script>
+	  </c:forEach>
+	</div>
+  </c:if>
+	 
+		<h1>It's your MIRROR</h1>
 		<p>Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
 		<p>Safari exhibits a bug in which resizing your browser horizontally causes rendering errors in the justified nav that are cleared upon</p>
+		<p>is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been</p>
+		<p>Contrary to popular belief, Lorem Ipsum is not simply random text.</p>
 		<c:if test="${userJoinName != null}">
 			<script>
 				alert("가입을 축하드립니다.")
 			</script>
 		</c:if>
-	</div>
 	
-	<div style="margin: 5%;"></div>	
+	<div style="margin: 5%;"></div>
 	
-	<div class="row">
-	  <div class="col-lg-4">
-	    <h2>Safari bug warning!</h2>
-	    <br />
-	    <p class="text-danger">As of v8.0, Safari exhibits a bug in which resizing your browser horizontally causes rendering errors in the justified nav that are cleared upon refreshing.</p>
-	    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-	    <p><a>View details »</a></p>
-	  </div>
-	  <div class="col-lg-4">
-	    <h2>close</h2>
-	    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-	    <p><a>View details »</a></p>
-	 </div>
-	  <div class="col-lg-4">
-	    <h2>Heading</h2>
-	    <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa.</p>
-	    <p><a>View details »</a></p>
-	  </div>
-	</div>
-	
-	
-	<div style=" width:100%; margin: 10px;">
+	<div style=" width:100%;">
 		<div id="carousel-example-generic" class="carousel slide" >
 			<ol class="carousel-indicators">
 				<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
@@ -59,17 +62,17 @@
 			</ol>
 			<div class="carousel-inner" role="listbox">
 				<div class="item active">
-					<img src="https://images.unsplash.com/photo-1507835661088-ac1e84fe645f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1429&q=80" style="width:100%; height:700px;  object-fit: cover;">
+					<img src="https://images.unsplash.com/photo-1549122728-f519709caa9c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1225&q=80" style="width:100%; height:700px;  object-fit: cover;">
 					<div class="carousel-caption" style="color:black;">
 					</div>
 				</div>
 				<div class="item">
-					<img src="https://images.unsplash.com/photo-1612537784037-898eb4583c35?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1267&q=80" style="width:100%; height:700px; object-fit: cover;">
+					<img src="https://images.unsplash.com/photo-1510172951991-856a654063f9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" style="width:100%; height:700px; object-fit: cover;">
 					<div class="carousel-caption" style="color:black;">
 					</div>
 				</div>
 				<div class="item">
-					<img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" style="width:100%; height:700px; object-fit: cover;">
+					<img src="https://images.unsplash.com/photo-1598618443855-232ee0f819f6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=667&q=80" style="width:100%; height:700px; object-fit: cover;">
 					<div class="carousel-caption" style="color:black;">
 					</div>
 				</div>

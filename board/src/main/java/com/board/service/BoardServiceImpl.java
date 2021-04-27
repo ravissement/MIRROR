@@ -84,5 +84,16 @@ public class BoardServiceImpl implements BoardService {
 	public int writeThumb(BoardVO vo) throws Exception {
 		return dao.writeThumb(vo);
 	}
+	
+	
+	
+	
+	
 
+	@Override
+	public List<BoardVO> homeList(int limit) throws Exception {
+		return dao.homeList(limit);
+	}
+
+	
 }
