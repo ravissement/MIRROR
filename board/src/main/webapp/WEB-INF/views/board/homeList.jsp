@@ -32,52 +32,56 @@
 <div class="container">
 	
 	<table class="table" style="margin-top:50px;" id="userListViewTable">
-		
-		<tbody>
-			
-			<c:forEach items="${list}" var="list">
+		<tbody id="ele">
+			<c:forEach items="${homeList}" var="homeList">
 				<tr>
 					<td style="line-height:1.5em;">
-						<a href="/board/view?bno=${list.bno}" style="font-size:1.5em;">${list.title}</a> <br>
+						<a href="/board/view?bno=${homeList.bno}" style="font-size:1.5em;">${homeList.title}</a> <br>
 						<div class="txt_line">
-						<c:if test="${!empty list.subTitle}">
-						${list.subTitle}
-						</c:if> | ${list.content}
+						<c:if test="${!empty homeList.subTitle}">
+						${homeList.subTitle}
+						</c:if> | ${homeList.content}
 						</div><br/>
-						<span style="font-size:0.6em;"><fmt:formatDate value="${list.regDate}" pattern="yyyy-MM-dd" /></span>
+						<span style="font-size:0.8em;">${homeList.writer} / <fmt:formatDate value="${homeList.regDate}" pattern="yyyy-MM-dd" /></span>
 					</td>
 					<td class="imgThumb">
-						<c:if test="${!empty list.boardThumbnail}">
-							<c:if test="${!fn: contains(list.boardThumbnail, 'none.png')}">
-								<img src="/resources/${list.boardThumbnail}" class="imgThumb_in" />
+						<c:if test="${!empty homeList.boardThumbnail}">
+							<c:if test="${!fn: contains(homeList.boardThumbnail, 'none.png')}">
+								<img src="/resources/${homeList.boardThumbnail}" class="imgThumb_in" />
 							</c:if>
 						</c:if>
 					</td>
 				</tr>
 			</c:forEach>
-			
 		</tbody>
 	</table>
 </div>
+
+<div id="scrollEnd"></div>
 </body>
 
 <script type="text/javascript">
-
-
 
 var listWritepage = 1;
 var keyword = "";
 
 
-/* 스크롤 감지 및 페이징 호출 */
-$(window).scroll(function(){
-	if ($(document).height() - $(window).scrollTop() == 1057) {	
+//스크롤 감지 및 페이징 호출 
+$(window).on('scroll', function(){
+	
+	var scrollHeight = $(document).height();
+	var scrollPosition = $(window).height() + $(window).scrollTop();		
+	console.log(scrollPosition);
+	if(scrollPosition > scrollHeight + 400 ) {	
+		
 		listWritepage += 1;
     pagingAjax(listWritepage, keyword);
 		
 	}
 
 });
+
+
 
 /* timestamp Date-Format */
 function getFormatDate(date){
@@ -102,7 +106,7 @@ function isEmpty(value){
 function pagingAjax(page, keywrod) {
 	keyword = getParameterByName('keyword');
 	$.ajax({
-        url: '/board/listAjax?num='+page+'&user_id=${member.user_id}&keyword='+keyword,
+        url: '/board/homeListAjax?num='+page+'&user_id=${member.user_id}&keyword='+keyword,
         type: 'POST',
         dataType : 'json',
         success: function(data){
@@ -136,11 +140,11 @@ function pagingAjax(page, keywrod) {
 								str +=	"</tr>"
             		};
             		
-            		$('#userListViewTable').append(str).hide().fadeIn(1000);   								
+            		$('#userListViewTable').append(str).hide().fadeIn(50);   								
 						
 	           
             }else {
-           	 alert("마지막 페이지입니다.");
+            	//alert("마지막페이지입니다.")
             }
             
             

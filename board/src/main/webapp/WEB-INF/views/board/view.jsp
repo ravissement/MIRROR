@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
+<%@ page session="true" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,9 +28,9 @@
 }
 
 .titleInput {border:none; height:80px; width:100%; font-size: 3em;}
-.subTitleInput {border:none; width:100%; font-size: 1em;}
+.subTitleInput {border:none; width:100%; font-size: 1.5em;}
 .btnSort-set{ text-align:right; font-weight:bold; }
-.writerSide {padding: 5px;}
+.writerSide {padding: 10px 5px 0 5px;;}
 .imgThumb { position: absolute; opacity: 0.4; position:absolute; top:0; left:0; width: 100%; height:100%; z-index: -100;}
 .imgThumb_in {width:100%; height:100%; object-fit: cover; border-radius: 50%;}
 .fontString {font-weight: bold;}
@@ -40,8 +40,8 @@
 <%@ include file="../include/header.jsp" %>
 	
 <div class="imgThumb">
-	<c:if test="${view.boardThumbnail != null}">
-		<img src="/resources/${view.boardThumbnail}" class="imgThumb_in" />
+	<c:if test="${view.ori_boardThumbnail != null}">
+		<img src="/resources/${view.ori_boardThumbnail}" class="imgThumb_in" />
 	</c:if>
 </div>	
 	
@@ -53,10 +53,12 @@
 	<div  class="subTitleInput">
 		${view.subTitle}
 	</div>
-	<div class="btnSort-set">
-		<a href="/board/modify?bno=${view.bno}">수정</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<a href="/board/delete?bno=${view.bno}" onclick="return confirm('Are you sure?')">삭제</a>
-	</div>
+	<c:if test="${member.user_id eq view.writer}">
+		<div class="btnSort-set">
+			<a href="/board/modify?bno=${view.bno}">수정</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="/board/delete?bno=${view.bno}" onclick="return confirm('Are you sure?')">삭제</a>
+		</div>
+	</c:if>
 	<div class="writerSide">
 	By ${view.writer}
 	</div>
@@ -75,9 +77,11 @@
 			<div>
 				<p style="font-weight:bold;">${reply.writer} / <fmt:formatDate value="${reply.regDate}" pattern="yyyy-MM-dd"/></p>
 				<p>${reply.content}</p>
-			</div>		
-			<a href="/reply/delete?bno=${view.bno}&rno=${reply.rno}" onclick="return confirm('Are you sure?')" class="fontString">삭제</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="#" onclick="checkModify(${view.bno}, ${reply.rno}, '${reply.writer}', '${reply.content}')" class="fontString">댓글 수정</a>
+			</div>
+			<c:if test="${member.user_id eq view.writer}">		
+				<a href="/reply/delete?bno=${view.bno}&rno=${reply.rno}" onclick="return confirm('Are you sure?')" class="fontString">삭제</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="#" onclick="checkModify(${view.bno}, ${reply.rno}, '${reply.writer}', '${reply.content}')" class="fontString">댓글 수정</a>
+			</c:if>
 		</li>
 		<br />
 	</c:forEach>

@@ -68,7 +68,7 @@ html.open {
   z-index: 4;
   display: none;
 }
-.userThumbnailMain { border-radius: 40%;}
+.userThumbnailMain { border-radius: 40%; width:150px;}
 #thumbnail_file{ display: none; }
 #buttonThumnArea {padding: 5px;;}
 </style>
@@ -86,21 +86,32 @@ html.open {
 	  <c:if test="${!empty member}">
 	  <div>
 	  	
+	  		
+	  	
+	  	<!-- 
 	  	<c:if test="${!empty member_thumb}"> 
 	  		<a href="#" id="thumbfile"><img src="${member_thumb.user_thumbnail}" class="userThumbnailMain" /></a>
 	  	</c:if>
 	  	<c:if test="${empty member_thumb}">
 				<a href="#" id="thumbfile"><img src="${member.user_thumbnail}" class="userThumbnailMain"/></a>  	
 	  	</c:if>
-	  	<c:if test="${empty member.user_thumbnail && empty member_thumb }">
-	  		<a href="#" id="thumbfile"><i class="fas fa-user-plus" style="font-size:2em;"></i></a>
+	  	 -->
+	  	 
+  	 	<c:if test="${!empty member.user_thumbnail}">
+  			<a href="#" id="thumbfile"><img src="${member.user_thumbnail}" class="userThumbnailMain" /></a>
+  		</c:if>
+	  	 
+	  	<c:if test="${empty member.user_thumbnail}">
+	  		<a href="#" id="thumbfile"><img src="" class="userThumbnailMain" onerror="this.style.display='none'"/><i class="fas fa-user-plus" style="font-size:2em;" id="uploadIcon"></i></a>
 	  	</c:if>
 	  	
-	  	<c:if test="${empty member.user_thumbnail && empty member_thumb }">
+	  	 
+	  	<c:if test="${empty member.user_thumbnail}">
 		  	<div>
 		  		<form name="thumbnailForm"  action="/user/thumbnail" method="POST"  enctype="multipart/form-data">
 		  				 <input type="hidden" name="user_id" value="${member.user_id}"/>
 	             <input type="file" name="thumbnail_file" id="thumbnail_file"/>
+	             <img onerror="style.display='none'" class="header_imgThumb_in" />
 	             
 	             <div id="buttonThumnArea">
 	             	<a href='#' id='thumbnailBtn'>썸네일을 올려보세요.</a>
@@ -145,7 +156,7 @@ html.open {
 	  </div>
 	  <ul class="nav nav-sidebar">
 	    <li><a href="/">미러 홈</a></li>
-	    <li><a href="">새 기록들</a></li>
+	    <li><a href="/board/homeList?num=1">새 기록들</a></li>
 	    <li><a href="">기록 보관함</a></li>
 	    <li><a href="">베스트</a></li>
 	  </ul>
@@ -228,6 +239,33 @@ $("#thumbnail_file").change(function(e){
  
 
 });
+
+
+//파일 선택 이벤트
+$(function() {
+    $("#thumbnail_file").on('change', function(){
+    	//ajaxThumbnail();
+    	//uploadIcon
+	    	readURL(this);
+    });
+});
+
+/*이미지 미리보기*/
+function readURL(input) {
+    if (input.files && input.files[0]) {
+    	$("#uploadIcon").remove();
+    	
+    	var reader = new FileReader();
+      
+       reader.onload = function (e) {
+    	   $('.userThumbnailMain').css("display", "inline")
+    	   $('.userThumbnailMain').attr("src",e.target.result);
+       }
+       
+       reader.readAsDataURL(input.files[0]);
+    }
+}
+
 
 
 

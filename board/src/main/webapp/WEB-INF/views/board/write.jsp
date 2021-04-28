@@ -39,6 +39,7 @@
 		</script>
 	</c:if>
 	<div class="container">
+		<!-- 
 		<form method="POST" name="testForm" id="testForm" style="margin-top:50px;" enctype="multipart/form-data">
 			<input type="hidden" name="writer" value="${member.user_id}" />
 			<div class="btnSort-set" style="line-height: 2em; font-size: 2em;">
@@ -47,9 +48,14 @@
 				 
 			</div>
 		</form>
-		<form name="wform" id="wform" method="post" class="form-signin">
+		 -->
+		<form name="wform" id="wform" method="post" class="form-signin" enctype="multipart/form-data">
+			<div class="btnSort-set" style="line-height: 2em; font-size: 2em;">
+				<a href="#" id="thumbWriteFileTest_click"><i class="far fa-image"></i></a>
+				 <input type="file" name="boardThumbnailTest" id="boardThumbnailTest" style="display: none;"/>
+			</div>
 			<input type="hidden" name="writer" value="${member.user_id}" />
-			<input type="hidden" name="bno"/>
+			<input type="hidden" name="bno" value="0"/>
 			<div>
 				<input type="text" name="title" placeholder="제목을 입력하세요." class="titleInput" maxlength="49">
 			</div>
@@ -83,7 +89,8 @@ $('#thumbWriteFileTest_click').click(function (e) {
 	$('#boardThumbnailTest').click();
 });
 
-/*ajax 이미지 업로드*/
+/*
+ajax 이미지 업로드
 function ajaxThumbnail() {
  	var form = $('#testForm')[0];
   var data = new FormData(form);
@@ -107,11 +114,13 @@ function ajaxThumbnail() {
 				}
     });
 };
+*/
+
 
 /*파일 선택 이벤트*/
 $(function() {
     $("#boardThumbnailTest").on('change', function(){
-    	ajaxThumbnail();
+    	//ajaxThumbnail();
     	readURL(this);
     });
 });

@@ -46,8 +46,8 @@
 <%@ include file="../include/header.jsp" %>
 <div class="container">
 	<div style="width: 60%; margin-left: 20%;">
+	<input type="hidden" id="idck" name="idck" value=""/><!--중복id 체크결과-->
 	<form name="memberJoin" method="post" class="form-signin" action="/user/join" style="margin-top:50px;">
-			<input type="hidden" id="idck" name="idck" value=""/><!--중복id 체크결과-->
 			<p style="line-height:1em;">
 			ID : <span class="id_input_re_1">사용 가능한 아이디입니다.</span>
 				<span class="id_input_re_2">아이디가 이미 존재합니다.</span><input type="button" name="id_double_check" id="id_double_check" value="중복확인" class="buttonJoinCustom"  style="float: right; height:10px; line-height: 0.3em;" />

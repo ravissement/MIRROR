@@ -35,6 +35,7 @@
 <%@ include file="../include/header.jsp" %>
 
 <div class="container">
+	<!-- 
 	<form method="POST" name="testForm" id="testForm" style="margin-top:50px;" enctype="multipart/form-data">
 			<input type="hidden" name="writer" value="${member.user_id}" />
 			<div class="btnSort-set" style="line-height: 2em; font-size: 2em;">
@@ -43,7 +44,12 @@
 				 
 			</div>
 	</form>
-	<form method="post" name="mform">
+	 -->
+	<form method="post" name="mform" enctype="multipart/form-data">
+		<div class="btnSort-set" style="line-height: 2em; font-size: 2em;">
+			<a href="#" id="thumbWriteFileTest_click"><i class="far fa-image"></i></a>
+		 	<input type="file" name="boardThumbnailTest" id="boardThumbnailTest" style="display: none;"/>
+		</div>
 		<input type="hidden" name="writer" value="${member.user_id}" />
 		
 		<input type="hidden" name="bno" value="${view.bno}" />
@@ -97,7 +103,7 @@ $('#thumbWriteFileTest_click').click(function (e) {
 });
 
 
-/*ajax 이미지 업로드*/
+/*ajax 이미지 업로드
 function ajaxThumbnail() {
  	var form = $('#testForm')[0];
   var data = new FormData(form);
@@ -123,11 +129,11 @@ function ajaxThumbnail() {
 				}
     });
 };
-
+*/
 /*파일 선택 이벤트*/
 $(function() {
     $("#boardThumbnailTest").on('change', function(){
-    	ajaxThumbnail();
+    	//ajaxThumbnail();
     	readURL(this);
     });
 });

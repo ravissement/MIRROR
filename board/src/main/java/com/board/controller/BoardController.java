@@ -38,9 +38,63 @@ public class BoardController {
 	@Inject
 	private ReplyService replyService;
 	
-	
 	@Resource(name="uploadPath")
 	private String uploadPath;
+	
+	
+	
+	//Home 게시물 목록
+	@RequestMapping(value = "/homeList", method = RequestMethod.GET)
+	public void getHomeList(Model model, @RequestParam("num") int num, 
+			@RequestParam(value = "searchType", required = false, defaultValue = "title") String searchType,
+			@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword) throws Exception {
+		
+		Page page = new Page();
+		
+		page.setNum(num);
+		page.setCount(service.searchCount(searchType, keyword));  
+		
+		
+		page.setSearchType(searchType);
+		page.setKeyword(keyword);
+		
+		List<BoardVO> list = null;
+		list = service.listPageSearch(page.getDisplayPost(), page.getPostNum(), searchType, keyword);
+		
+		model.addAttribute("homeList", list);
+		
+		//model.addAttribute("nav", "noSearch");
+	}
+	
+	//게시물 목록 무한 스크롤
+	@ResponseBody
+	@RequestMapping(value = "/homeListAjax", method = RequestMethod.POST)
+	public Object getHomeListAjax(Model model, @RequestParam("num") int num, 
+			@RequestParam(value = "searchType", required = false, defaultValue = "title") String searchType,
+			@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword) throws Exception {
+		
+		Page page = new Page();
+		
+		page.setNum(num);
+		page.setCount(service.searchCount(searchType, keyword));  
+		
+		page.setSearchType(searchType);
+		page.setKeyword(keyword);
+		
+		List<BoardVO> list = null;
+		list = service.listPageSearch(page.getDisplayPost(), page.getPostNum(), searchType, keyword);
+		
+		//model.addAttribute("list", list);
+		//DateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd");
+		//String today = sdFormat.format(list.toString());
+		
+		return list; 
+		//model.addAttribute("nav", "noSearch");
+	}
+
+	
+	
+	
 	
 	//게시물 목록
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -97,24 +151,55 @@ public class BoardController {
 	public void getWrite(Model model) throws Exception {
 		model.addAttribute("nav", "noSearch");
 	}
-	
+	/*
 	//저장
 	@RequestMapping(value="/write", method = RequestMethod.POST)
 	public void postWrite(BoardVO vo,  Model model) throws Exception {
 		
+		if(vo.getBno() > 0) {
+			BoardVO testVO = service.view(vo.getBno());
+			
+			if(testVO == null) {
+				service.write(vo);
+			}else {
+				service.modify(vo);
+			}
+			
+			model.addAttribute("writeMessage", "정상적으로 저장되었습니다.");
 		
-		BoardVO testVO = service.view(vo.getBno());
-		if(testVO == null) {
+		} else {
 			service.write(vo);
-		}else {
-			service.modify(vo);
+			model.addAttribute("writeMessage", "정상적으로 저장되었습니다.");
+			
 		}
 		
+	}
+	*/
+	
+	//저장
+	@RequestMapping(value="/write", method = RequestMethod.POST)
+	public void postWrite(BoardVO vo, @RequestParam(value = "boardThumbnailTest", required = false) MultipartFile file,  Model model) throws Exception {
+		
+		String imgUploadPath = uploadPath + File.separator + "boardThumbnail";
+		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+		String fileName = null;
+		//String originalFilename = vo.getUser_id() + "_thumbnail.png";
+		if(file.getSize() != 0) {
+			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
+		} else {
+			fileName = uploadPath + File.separator + "boardThumbnail" + File.separator + "none.png";
+		}
+
+		vo.setOri_boardThumbnail(File.separator + "boardThumbnail" + ymdPath + File.separator + fileName);
+		vo.setBoardThumbnail(File.separator + "boardThumbnail" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
+		
+		service.write(vo);
 		model.addAttribute("writeMessage", "정상적으로 저장되었습니다.");
 		
 	}
 	
-	//Ajax 이미지 썸네일
+	
+	/*Ajax 이미지 썸네일
 	@ResponseBody
 	@RequestMapping(value="/ajaxThumbnail", method= RequestMethod.POST)
 	public Object ajaxThumb(@RequestParam(value = "boardThumbnail", required = false) MultipartFile boardThumbnail, BoardVO vo) throws Exception {
@@ -149,8 +234,10 @@ public class BoardController {
 		//System.out.println(jsonString);
 		return vo;
 	}
+	*/
 	
-	//Ajax 이미지 썸네일 
+	
+	/*Ajax 이미지 썸네일 
 	@RequestMapping(value = "/ajaxThumbnailTest", method= {RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody
 	public Object ajaxThumbTest(MultipartHttpServletRequest multipartRequest, BoardVO vo) throws Exception {
@@ -199,7 +286,7 @@ public class BoardController {
 	    return vo;
 	   
 	}
-	
+	*/
 	//게시물 조회
 	@RequestMapping(value="/view", method = RequestMethod.GET)
 	public void getView(@RequestParam("bno") int bno, Model model) throws Exception {
@@ -225,7 +312,21 @@ public class BoardController {
 	
 	//게시물 수정
 	@RequestMapping(value="/modify", method = RequestMethod.POST)
-	public String postModify(BoardVO vo, Model model) throws Exception {
+	public String postModify(BoardVO vo, @RequestParam(value = "boardThumbnailTest", required = false) MultipartFile file, Model model) throws Exception {
+		
+		String imgUploadPath = uploadPath + File.separator + "boardThumbnail";
+		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+		String fileName = null;
+		//String originalFilename = vo.getUser_id() + "_thumbnail.png";
+		if(file.getSize() != 0) {
+			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
+		} else {
+			fileName = uploadPath + File.separator + "boardThumbnail" + File.separator + "none.png";
+		}
+
+		vo.setOri_boardThumbnail(File.separator + "boardThumbnail" + ymdPath + File.separator + fileName);
+		vo.setBoardThumbnail(File.separator + "boardThumbnail" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
+		
 		service.modify(vo);
 		return "redirect:/board/view?bno="+ vo.getBno();
 	}

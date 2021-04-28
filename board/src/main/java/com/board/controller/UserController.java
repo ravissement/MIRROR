@@ -80,7 +80,7 @@ public class UserController {
 		
 	//로그아웃
 	@RequestMapping(value ="/logout", method = RequestMethod.GET)
-	public String getLoout(HttpServletRequest req, Model model) throws Exception {
+	public String getLoout(HttpServletRequest req) throws Exception {
 
 		HttpSession session = req.getSession();
 		session.removeAttribute("member");
@@ -104,7 +104,7 @@ public class UserController {
 	
 	//프로필 썸네일 저장
 	@RequestMapping(value ="/thumbnail", method = RequestMethod.POST)
-	public String getThumbnail(UserVO vo, @RequestParam(value = "thumbnail_file", required = false) MultipartFile file, Model model) throws Exception {
+	public String getThumbnail(UserVO vo, @RequestParam(value = "thumbnail_file", required = false) MultipartFile file, HttpServletRequest req) throws Exception {
 		
 		String imgUploadPath = uploadPath + File.separator + "thumbnail";
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
@@ -120,7 +120,16 @@ public class UserController {
 		vo.setUser_thumbnail(File.separator + "thumbnail" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
 		
 		service.thumbnail(vo);
-		model.addAttribute("member_thumb", vo);
+		
+		HttpSession session = req.getSession();
+		UserVO name = (UserVO) session.getAttribute("member");
+		
+		name.setOri_thumbnail(vo.getOri_thumbnail());
+		name.setUser_thumbnail(vo.getUser_thumbnail());
+		
+		session.setAttribute("member", name);
+		
+		//model.addAttribute("member_thumb", vo);
 		//model.addAttribute("filename", file);
 		return "home";
 		

@@ -14,7 +14,6 @@
 	</insert>  
 	
 	
-	
 	<!--로그인 -->
 	<select id="login" resultType="com.board.domain.UserVO">
 		SELECT user_id, user_name, AES_DECRYPT(UNHEX(user_email),'e') as user_email, user_thumbnail,  ori_thumbnail 
@@ -29,6 +28,7 @@
 		FROM board.tbl_user 
 		WHERE user_id = #{user_id}
 	</select>
+	
 	
 	<!-- 썸네일 등록 -->
 	<update id="thumbnail">

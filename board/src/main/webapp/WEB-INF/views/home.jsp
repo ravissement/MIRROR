@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css">
@@ -21,25 +21,6 @@
 
 <div class="container" >
 	
-  <c:if test="${homeList ne null}">
-	<div class="row" style="height:500px;">
-	  <c:forEach items="${homeList}" var="homeList">
-		  <div class="col-lg-4 imgThumb">
-		    <h2 class="text-space-use">${homeList.title}</h2>
-		    <br />
-		    <p class="text-danger text-space-use">
-		    	${homeList.content}
-		    </p>
-		    <p><a href="/board/view?bno=${homeList.bno}">View details »</a></p>
-		    <img src="/resources/${homeList.boardThumbnail}" class="imgThumb_in"/>
-		  </div>
-		  <script>
-				console.log("${homeList.title}");
-			</script>
-	  </c:forEach>
-	</div>
-  </c:if>
-	 
 		<h1>It's your MIRROR</h1>
 		<p>Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
 		<p>Safari exhibits a bug in which resizing your browser horizontally causes rendering errors in the justified nav that are cleared upon</p>
@@ -92,11 +73,48 @@
 		</div>
 	</div>
 
+	<c:if test="${homeList ne null}">
+	<div class="row" style="height:500px;">
+	  <c:forEach items="${homeList}" var="homeList">
+		  <div class="col-lg-4 imgThumb">
+		    <h2 class="text-space-use">${homeList.title}</h2>
+		    <br />
+		    <p class="text-danger text-space-use">
+		    	${homeList.content}
+		    </p>
+		    <p><a href="/board/view?bno=${homeList.bno}">View details »</a></p>
+		    
+		    <c:if test="${!empty homeList.boardThumbnail}">
+		    	<c:if test="${!fn: contains(homeList.boardThumbnail, 'none.png')}">
+		    		<img src="/resources/${homeList.boardThumbnail}" class="imgThumb_in"/>
+		    	</c:if>		    
+		    </c:if>
+		  
+		  </div>
+		  <script>
+				console.log("${homeList.title}");
+			</script>
+	  </c:forEach>
+	</div>
+  </c:if>
+
  <%@ include file="include/footer.jsp" %>
 
 </div>
 
+<script>
+/* 키워드 검색 */
+$('#searchBtnGo').click(function () {
+	var newForm = $('form[name=searchForm]');
+	newForm.append($('<input/>', {type: 'hidden', name: 'user_id', value:'${member.user_id}' })); 
+	newForm.append($('<input/>', {type: 'hidden', name: 'num', value:'1' }));
+	newForm.appendTo('body');
+	newForm.action = "/board/list";
+	newForm.submit();	
+	
+});
 
+</script>
 
 </body>
 </html>

@@ -124,6 +124,7 @@ public class BoardDAOImpl implements BoardDAO {
 		return sql.update(namespace + ".modifyThumb", vo);
 	}
 	
+
 	
 	
 	

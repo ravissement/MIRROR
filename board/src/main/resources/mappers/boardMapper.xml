@@ -5,6 +5,9 @@
 <mapper namespace="com.board.mappers.board">
 	
 	
+<!--************************************************************************************* Home & 전체글 *************************************************************************************-->
+	
+	
 	<!-- 홈 리스트 -->
 	<select id="homeList" parameterType="int" resultType="com.board.domain.BoardVO">
 		select  
@@ -12,6 +15,44 @@
 		from board.tbl_board
 		order by regDate DESC LIMIT #{limit}
 	</select>
+	
+	
+	
+	<!-- 게시물 목록 + 페이징 + 검색 -->
+	<select id="listPageSearch" parameterType="hashMap" resultType="com.board.domain.BoardVO">
+		 select
+		 	(select COUNT(*) from board.tbl_reply where bno = board.tbl_board.bno) as cnt, bno, title, subTitle, content, ori_boardThumbnail, boardThumbnail, writer, regDate, viewCnt
+		 from board.tbl_board
+		 
+		 <if test='searchType.equals("title")'>
+		  WHERE title LIKE concat('%', #{keyword}, '%')
+		 </if>
+		 
+		 <if test='searchType.equals("content")'>
+		  WHERE content LIKE concat('%', #{keyword}, '%')
+		 </if>
+		 
+		 <if test='searchType.equals("title_content")'>
+		  WHERE title LIKE concat('%', #{keyword}, '%') 
+		   or content LIKE concat('%', #{keyword}, '%')
+		 </if>
+		 
+		 <if test='searchType.equals("writer")'>
+		  WHERE writer LIKE concat('%', #{keyword}, '%')
+		 </if>
+		 
+		 	order by bno desc
+		  limit #{displayPost}, #{postNum}
+	</select> 
+	
+	
+<!--  **************************************************************************************************************************************************************************************** -->
+<!--  **************************************************************************************************************************************************************************************** -->
+<!--  **************************************************************************************************************************************************************************************** -->
+	
+
+
+<!--************************************************************************************* user 개인 *************************************************************************************-->
 	
 	
 	<!-- 게시물 목록 + 페이징 + 검색 -->
@@ -90,30 +131,14 @@
 		
 	</select>
 	
-	<!--게시물 목록 -->
-	<select id="list" resultType="com.board.domain.BoardVO" parameterType="String">
-		select 
-			bno, title, subTitle, content, writer, regDate, viewCnt
-		from board.tbl_board
-		where writer = #{user_id}
-		order by regDate DESC
-		limit #{displayPost}, #{postNum}
-	</select>
-	
 
 	<!--게시물 작성 -->
 	<insert id="write" parameterType="com.board.domain.BoardVO" useGeneratedKeys="true" keyProperty="bno">
 		insert into
-			board.tbl_board(title, subTitle, content, writer)
-				values(#{title}, #{subTitle}, #{content}, #{writer})
+			board.tbl_board(title, subTitle, content, writer, ori_boardThumbnail, boardThumbnail)
+				values(#{title}, #{subTitle}, #{content}, #{writer}, #{ori_boardThumbnail}, #{boardThumbnail})
 	</insert>
 
-	<!--썸네일 작성 -->
-	<insert id="writeThumb" parameterType="com.board.domain.BoardVO" useGeneratedKeys="true" keyProperty="bno">
-		insert into
-			board.tbl_board(writer, ori_boardThumbnail, boardThumbnail)
-				values(#{writer}, #{ori_boardThumbnail}, #{boardThumbnail})
-	</insert>
 	
 	<!-- 게시물 조회 -->
 	<select id="view" parameterType="int" resultType="com.board.domain.BoardVO">
@@ -132,18 +157,12 @@
 				title = #{title},
 				subTitle = #{subTitle},
 				content = #{content},
-				writer = #{writer}
-			where bno = #{bno}
-	</update>
-	
-	<!-- 게시물 수정 -->
-	<update id="modifyThumb" parameterType="com.board.domain.BoardVO" useGeneratedKeys="true" keyProperty="bno">
-		update board.tbl_board
-			set
+				writer = #{writer},
 				ori_boardThumbnail = #{ori_boardThumbnail},
 				boardThumbnail = #{boardThumbnail}
 			where bno = #{bno}
 	</update>
+	
 	
 	<!-- 게시물 삭제 -->
 	<delete id="delete" parameterType="int">
@@ -152,10 +171,48 @@
 		where bno = #{bno}
 	</delete>
 	
-	<!-- 게시물 총 갯수 -->
+	
+	
+	
+	
+	
+	
+	
+	
+	<!--게시물 목록 -->
+	<!-- 
+	<select id="list" resultType="com.board.domain.BoardVO" parameterType="String">
+		select 
+			bno, title, subTitle, content, writer, regDate, viewCnt
+		from board.tbl_board
+		where writer = #{user_id}
+		order by regDate DESC
+		limit #{displayPost}, #{postNum}
+	</select>
+	-->
+	 
+	 <!-- 게시물 총 갯수 -->
 	<select id="count" resultType="int">
 		select count(bno) from board.tbl_board where user_id = #{user_id}
 	</select>
+	 
+	 	<!--썸네일 작성 -->
+	<insert id="writeThumb" parameterType="com.board.domain.BoardVO" useGeneratedKeys="true" keyProperty="bno">
+		insert into
+			board.tbl_board(writer, ori_boardThumbnail, boardThumbnail)
+				values(#{writer}, #{ori_boardThumbnail}, #{boardThumbnail})
+	</insert>
+	 
+	<!-- 게시물 수정 -->
+	<update id="modifyThumb" parameterType="com.board.domain.BoardVO" useGeneratedKeys="true" keyProperty="bno">
+		update board.tbl_board
+			set
+				ori_boardThumbnail = #{ori_boardThumbnail},
+				boardThumbnail = #{boardThumbnail}
+			where bno = #{bno}
+	</update>	 
+	
+	
 	
 	<!--게시물 목록 + 페이징 -->
 	<select id="listPage" parameterType="hashMap" resultType="com.board.domain.BoardVO">
@@ -166,32 +223,6 @@
 			limit #{displayPost}, #{postNum}
 	</select>
 	
-	<!-- 게시물 목록 + 페이징 + 검색 -->
-	<select id="listPageSearch" parameterType="hashMap" resultType="com.board.domain.BoardVO">
-		 select
-		  (select COUNT(*) from board.tbl_reply where bno = board.tbl_board.bno) as cnt, bno, title, writer, regDate, viewCnt
-		 from board.tbl_board
-		 
-		 <if test='searchType.equals("title")'>
-		  WHERE title LIKE concat('%', #{keyword}, '%')
-		 </if>
-		 
-		 <if test='searchType.equals("content")'>
-		  WHERE content LIKE concat('%', #{keyword}, '%')
-		 </if>
-		 
-		 <if test='searchType.equals("title_content")'>
-		  WHERE title LIKE concat('%', #{keyword}, '%') 
-		   or content LIKE concat('%', #{keyword}, '%')
-		 </if>
-		 
-		 <if test='searchType.equals("writer")'>
-		  WHERE writer LIKE concat('%', #{keyword}, '%')
-		 </if>
-		 
-		 order by bno desc
-		  limit #{displayPost}, #{postNum}
-	</select> 
 	
 
 </mapper>

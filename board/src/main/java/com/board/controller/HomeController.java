@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.board.domain.BoardVO;
 import com.board.service.BoardService;
@@ -23,16 +24,29 @@ public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) throws Exception {
+	public String home(Locale locale, Model model, @RequestParam(value = "searchType", required = false, defaultValue = "title") String searchType,
+			@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword) throws Exception {
 		logger.info("Welcome home! The client locale is {}.", locale);
-		int limit = 2;
-		List<BoardVO> homeList = null;
-		homeList = service.homeList(limit);
 		
-		model.addAttribute("homeList", homeList);
+		System.out.println(keyword);
 		
-		return "home";
+		if(keyword.equals("")) {
+			int limit = 3;
+			List<BoardVO> homeList = null;
+			homeList = service.homeList(limit);
+			
+			model.addAttribute("homeList", homeList);
+			
+			return "home";
+		}else {
+			return "redirect:board/homeList?num=1&keyword="+keyword;
+		}
+			
+		
 	}
+	
+
 	
 }
