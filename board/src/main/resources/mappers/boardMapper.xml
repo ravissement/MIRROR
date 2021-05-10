@@ -17,7 +17,6 @@
 	</select>
 	
 	
-	
 	<!-- 게시물 목록 + 페이징 + 검색 -->
 	<select id="listPageSearch" parameterType="hashMap" resultType="com.board.domain.BoardVO">
 		 select
@@ -44,6 +43,38 @@
 		 	order by bno desc
 		  limit #{displayPost}, #{postNum}
 	</select> 
+	
+	
+	
+	
+	
+	
+	<!-- BEST 게시글 -->
+	<select id="bestList" parameterType="hashMap" resultType="com.board.domain.BoardVO">
+		SELECT b.bno, b2.title, b2.content, b2.writer, b2.regDate, b2.viewCnt, ori_boardThumbnail, boardThumbnail, SUM(b.isUseLike) AS likeCnt 
+		FROM board.tbl_board_like AS b
+		LEFT JOIN board.tbl_board AS b2 ON b.bno = b2.bno
+		
+		<if test='searchType.equals("title")'>
+		  WHERE title LIKE concat('%', #{keyword}, '%')
+		 </if>
+		 
+		 <if test='searchType.equals("content")'>
+		  WHERE content LIKE concat('%', #{keyword}, '%')
+		 </if>
+		 
+		 <if test='searchType.equals("title_content")'>
+		  WHERE title LIKE concat('%', #{keyword}, '%') 
+		   or content LIKE concat('%', #{keyword}, '%')
+		 </if>
+		 
+		 <if test='searchType.equals("writer")'>
+		  WHERE writer LIKE concat('%', #{keyword}, '%')
+		 </if>
+		
+		GROUP BY bno ORDER BY likeCnt DESC
+	</select>
+	
 	
 	
 <!--************************************************************************************* user 개인 *************************************************************************************-->
@@ -234,6 +265,11 @@
 		set isUseLike = #{isUseLike}
 		where bno=#{bno} AND user_id = #{user_id}
 	</update>
+	
+	
+
+	
+	
 	
 
 </mapper>

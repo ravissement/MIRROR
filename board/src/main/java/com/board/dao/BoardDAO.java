@@ -61,6 +61,8 @@ public interface BoardDAO {
 	//게시글 좋아요 수정
 	public int boardLikeModify(BoardLikeVO vo) throws Exception;
 
-
+	//BEST 게시글 조회
+	public List<BoardVO> bestList(
+			int displayPost, int postNum, String searchType, String keyword) throws Exception;
 
 }

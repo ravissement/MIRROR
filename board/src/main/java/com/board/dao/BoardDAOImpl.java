@@ -151,6 +151,21 @@ public class BoardDAOImpl implements BoardDAO {
 	public int boardLikeModify(BoardLikeVO vo) throws Exception {
 		return sql.update(namespace + ".boardLikeModify", vo);
 	}
+
+	@Override
+	public List<BoardVO> bestList(int displayPost, int postNum, String searchType, String keyword) throws Exception {
+		
+		HashMap<String, Object> data = new HashMap<String, Object>();
+		
+		data.put("displayPost", displayPost);
+		data.put("postNum", postNum);
+
+		data.put("searchType", searchType);
+		data.put("keyword", keyword);
+		
+		return sql.selectList(namespace + ".bestList", data);
+		
+	}
 	
 	
 	

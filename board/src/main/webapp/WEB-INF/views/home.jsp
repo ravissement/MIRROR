@@ -26,6 +26,7 @@
 		<p>Safari exhibits a bug in which resizing your browser horizontally causes rendering errors in the justified nav that are cleared upon</p>
 		<p>is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been</p>
 		<p>Contrary to popular belief, Lorem Ipsum is not simply random text.</p>
+		<p style="text-align: right;"> Prod. By ravissement55@gmail.com</p>
 		<c:if test="${userJoinName != null}">
 			<script>
 				alert("가입을 축하드립니다.")

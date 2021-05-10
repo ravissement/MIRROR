@@ -95,6 +95,57 @@ public class BoardController {
 
 	
 	
+	//BEST 게시물 목록
+	@RequestMapping(value = "/boardBest", method = RequestMethod.GET)
+	public void getBestList(Model model, @RequestParam("num") int num, 
+			@RequestParam(value = "searchType", required = false, defaultValue = "title") String searchType,
+			@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword) throws Exception {
+		
+		Page page = new Page();
+		
+		page.setNum(num);
+		page.setCount(service.searchCount(searchType, keyword));  
+		
+		
+		page.setSearchType(searchType);
+		page.setKeyword(keyword);
+		
+		List<BoardVO> list = null;
+		list = service.bestList(page.getDisplayPost(), page.getPostNum(), searchType, keyword);
+		
+		model.addAttribute("bestList", list);
+		
+	}
+			
+	
+	//게시물 목록 무한 스크롤
+	@ResponseBody
+	@RequestMapping(value = "/bestListAjax", method = RequestMethod.POST)
+	public Object getBestListAjax(Model model, @RequestParam("num") int num, 
+			@RequestParam(value = "searchType", required = false, defaultValue = "title") String searchType,
+			@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword) throws Exception {
+		
+		Page page = new Page();
+		
+		page.setNum(num);
+		page.setCount(service.searchCount(searchType, keyword));  
+		
+		page.setSearchType(searchType);
+		page.setKeyword(keyword);
+		
+		List<BoardVO> list = null;
+		list = service.bestList(page.getDisplayPost(), page.getPostNum(), searchType, keyword);
+		
+		//model.addAttribute("list", list);
+		//DateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd");
+		//String today = sdFormat.format(list.toString());
+		
+		return list; 
+		//model.addAttribute("nav", "noSearch");
+	}
+
+	
+	
 	
 	
 	//게시물 목록
@@ -416,9 +467,6 @@ public class BoardController {
 	}
 	
 	
-	
-	
-	
 	//게시글 좋아요 
 	@ResponseBody
 	@RequestMapping(value = "/boardLike", method = RequestMethod.POST)
@@ -430,7 +478,6 @@ public class BoardController {
 		BoardLikeVO vo = new BoardLikeVO();
 		vo.setBno(bno);
 		vo.setUser_id(user_id);
-		
 		
 		BoardLikeVO boardLike = service.boardLike(vo);
 		
@@ -453,6 +500,10 @@ public class BoardController {
 		return result; 
 	}
 
+	
+	
+	
+	
 	
 }
 

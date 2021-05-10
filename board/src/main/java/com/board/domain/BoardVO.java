@@ -18,6 +18,7 @@ CREATE TABLE tbl_board(
 COMMIT;  
  
 */
+	private int likeCnt;
 	private int cnt;
 	private int bno;
 	private String title;
@@ -88,6 +89,12 @@ COMMIT;
 	}
 	public void setOri_boardThumbnail(String ori_boardThumbnail) {
 		this.ori_boardThumbnail = ori_boardThumbnail;
+	}
+	public int getLikeCnt() {
+		return likeCnt;
+	}
+	public void setLikeCnt(int likeCnt) {
+		this.likeCnt = likeCnt;
 	}
 	
 }

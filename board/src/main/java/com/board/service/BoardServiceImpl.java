@@ -111,5 +111,12 @@ public class BoardServiceImpl implements BoardService {
 		return dao.boardLikeModify(vo);
 	}
 
+	@Override
+	public List<BoardVO> bestList(int displayPost, int postNum, String searchType, String keyword) throws Exception {
+		return dao.bestList(displayPost, postNum, searchType, keyword);
+	}
+
+
+	
 	
 }

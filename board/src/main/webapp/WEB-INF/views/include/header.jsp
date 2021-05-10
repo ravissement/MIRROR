@@ -148,7 +148,8 @@ html.open {
 	  <c:if test="${!empty member}">
 	  <ul class="nav nav-sidebar">
 	    <li class="active"><a href="/board/write">글쓰기 <span class="sr-only">(current)</span></a></li>
-	    <li><a href="/board/list?num=1&user_id=${member.user_id}">기록</a></li>
+	    <li><a href="/board/list?num=1&user_id=${member.user_id}">기록함</a></li>
+	    <li><a href="">한줄 일기</a></li>
 	  </ul>
 	  </c:if>
 	  <div style="margin:20%;">
@@ -157,8 +158,7 @@ html.open {
 	  <ul class="nav nav-sidebar">
 	    <li><a href="/">미러 홈</a></li>
 	    <li><a href="/board/homeList?num=1">새 기록들</a></li>
-	    <li><a href="">기록 보관함</a></li>
-	    <li><a href="">베스트</a></li>
+	    <li><a href="/board/boardBest?num=1">베스트</a></li>
 	  </ul>
 	 
 	  </div>
