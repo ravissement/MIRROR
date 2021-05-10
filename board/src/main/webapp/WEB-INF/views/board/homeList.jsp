@@ -36,7 +36,7 @@
 			<c:forEach items="${homeList}" var="homeList">
 				<tr>
 					<td style="line-height:1.5em;">
-						<a href="/board/view?bno=${homeList.bno}" style="font-size:1.5em;">${homeList.title}</a> <br>
+						<a href="/board/view?bno=${homeList.bno}&user_id=${member.user_id}" style="font-size:1.5em;">${homeList.title}</a> <br>
 						<div class="txt_line">
 						<c:if test="${!empty homeList.subTitle}">
 						${homeList.subTitle}
@@ -69,10 +69,12 @@ var keyword = "";
 //스크롤 감지 및 페이징 호출 
 $(window).on('scroll', function(){
 	
-	var scrollHeight = $(document).height();
-	var scrollPosition = $(window).height() + $(window).scrollTop();		
-	console.log(scrollPosition);
-	if(scrollPosition > scrollHeight + 400 ) {	
+	var domHeight = $(document).height()-window.innerHeight;
+	var scrollHeight = $(window).scrollTop()
+	//console.log(domHeight);
+	//console.log(scrollHeight);
+	
+	if ( domHeight <= scrollHeight ) {	
 		
 		listWritepage += 1;
     pagingAjax(listWritepage, keyword);
@@ -125,7 +127,7 @@ function pagingAjax(page, keywrod) {
            			
 								str += "<tr>"
 						    str +=			"<td style='line-height:1.5em;'>"
-								str	+=			"<a href='/board/view?bno="+data[i].bno+"' style='font-size:1.5em;'>"+data[i].title+"</a> <br>"
+								str	+=			"<a href='/board/view?bno="+data[i].bno+"&user_id=${member.user_id}' style='font-size:1.5em;'>"+data[i].title+"</a> <br>"
 								str	+=			"<div class='txt_line'>"
 								str +=			isEmpty(data[i].subTitle)+" | "
 								str	+=			data[i].content

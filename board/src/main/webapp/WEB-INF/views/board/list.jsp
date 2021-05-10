@@ -38,7 +38,7 @@
 			<c:forEach items="${list}" var="list">
 				<tr>
 					<td style="line-height:1.5em;">
-						<a href="/board/view?bno=${list.bno}" style="font-size:1.5em;">${list.title}</a> <br>
+						<a href="/board/view?bno=${list.bno}&user_id=${member.user_id}" style="font-size:1.5em;">${list.title}</a> <br>
 						<div class="txt_line">
 						<c:if test="${!empty list.subTitle}">
 						${list.subTitle}
@@ -71,7 +71,16 @@ var keyword = "";
 
 /* 스크롤 감지 및 페이징 호출 */
 $(window).scroll(function(){
-	if ($(document).height() - $(window).scrollTop() == 1057) {	
+	//var scrollBarWidth = window.innerHeight-$(document).height()
+	//console.log($(window).scrollTop());
+	//console.log($(document).height() - $(window).scrollTop());
+	//console.log($(window).scrollTop());
+	var domHeight = $(document).height()-window.innerHeight;
+	var scrollHeight = $(window).scrollTop()
+	//console.log(domHeight);
+	//console.log(scrollHeight);
+	
+	if ( domHeight <= scrollHeight ) {
 		listWritepage += 1;
     pagingAjax(listWritepage, keyword);
 		
@@ -140,7 +149,7 @@ function pagingAjax(page, keywrod) {
 						
 	           
             }else {
-           	 alert("마지막 페이지입니다.");
+           	 //alert("마지막 페이지입니다.");
             }
             
             

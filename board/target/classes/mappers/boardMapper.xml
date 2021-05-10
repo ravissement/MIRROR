@@ -46,12 +46,6 @@
 	</select> 
 	
 	
-<!--  **************************************************************************************************************************************************************************************** -->
-<!--  **************************************************************************************************************************************************************************************** -->
-<!--  **************************************************************************************************************************************************************************************** -->
-	
-
-
 <!--************************************************************************************* user 개인 *************************************************************************************-->
 	
 	
@@ -172,13 +166,6 @@
 	</delete>
 	
 	
-	
-	
-	
-	
-	
-	
-	
 	<!--게시물 목록 -->
 	<!-- 
 	<select id="list" resultType="com.board.domain.BoardVO" parameterType="String">
@@ -223,6 +210,30 @@
 			limit #{displayPost}, #{postNum}
 	</select>
 	
+	
+	
+	
+	<!-- 게시글 좋아요 조회 -->
+	<select id="boardLike" parameterType="com.board.domain.BoardLikeVO" resultType="com.board.domain.BoardLikeVO">
+		select 
+			bno, user_id, isUseLike, regDate
+		from board.tbl_board_like
+		where bno=#{bno} AND user_id = #{user_id}
+	</select>
+	
+	<!-- 게시글 좋아요 생성-->
+	<insert id="boardLikeInsert" parameterType="com.board.domain.BoardLikeVO" useGeneratedKeys="true" keyProperty="isUseLike">
+		insert into
+			board.tbl_board_like(bno, user_id, isUseLike)
+		values (#{bno}, #{user_id}, 1)
+	</insert>
+	
+		<!-- 게시글 좋아요 수정 -->
+	<update id="boardLikeModify" parameterType="com.board.domain.BoardLikeVO" useGeneratedKeys="true" keyProperty="isUseLike">
+		update board.tbl_board_like 
+		set isUseLike = #{isUseLike}
+		where bno=#{bno} AND user_id = #{user_id}
+	</update>
 	
 
 </mapper>

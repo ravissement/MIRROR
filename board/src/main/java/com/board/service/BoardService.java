@@ -2,6 +2,7 @@ package com.board.service;
 
 import java.util.List;
 
+import com.board.domain.BoardLikeVO;
 import com.board.domain.BoardVO;
 
 public interface BoardService {
@@ -50,4 +51,16 @@ public interface BoardService {
 	
 	//홈 리스트
 	public List<BoardVO> homeList(int limit) throws Exception;
+	
+	
+	
+	//게시글 좋아요 생성
+	public int boardLikeInsert(BoardLikeVO vo) throws Exception;
+	
+	//게시글 좋아요 조회
+	public BoardLikeVO boardLike(BoardLikeVO vo) throws Exception;
+
+	//게시글 좋아요 수정
+	public int boardLikeModify(BoardLikeVO vo) throws Exception;
+	
 }

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.board.domain.BoardLikeVO;
 //import com.board.dao.BoardDAO;
 import com.board.domain.BoardVO;
 import com.board.domain.Page;
@@ -289,7 +290,7 @@ public class BoardController {
 	*/
 	//게시물 조회
 	@RequestMapping(value="/view", method = RequestMethod.GET)
-	public void getView(@RequestParam("bno") int bno, Model model) throws Exception {
+	public void getView(@RequestParam("bno") int bno, @RequestParam("user_id") String user_id, Model model) throws Exception {
 		
 		BoardVO vo = service.view(bno);
 		model.addAttribute("view", vo);
@@ -299,6 +300,24 @@ public class BoardController {
 		List<ReplyVO> reply = null;
 		reply = replyService.list(bno);
 		model.addAttribute("reply", reply);
+		
+		//좋아요 조회
+		BoardLikeVO Lvo = new BoardLikeVO();
+		Lvo.setBno(bno);
+		Lvo.setUser_id(user_id);
+		Lvo = service.boardLike(Lvo);
+		
+		if(Lvo != null) {
+			if(Lvo.getIsUseLike() == 1) {
+				model.addAttribute("isUseLike", "Y");
+			}else {
+				model.addAttribute("isUseLike", "N");
+			}
+			
+		}else {
+			model.addAttribute("isUseLike", "N");
+		}
+		
 	}
 	
 	//게시물 수정
@@ -395,6 +414,46 @@ public class BoardController {
 		model.addAttribute("nav", "listPageSearch");
 		
 	}
+	
+	
+	
+	
+	
+	//게시글 좋아요 
+	@ResponseBody
+	@RequestMapping(value = "/boardLike", method = RequestMethod.POST)
+	public Object getBoardLike(Model model, @RequestParam("bno") int bno, 
+			@RequestParam("user_id") String user_id) throws Exception {
+		
+		int result = 0;
+		
+		BoardLikeVO vo = new BoardLikeVO();
+		vo.setBno(bno);
+		vo.setUser_id(user_id);
+		
+		
+		BoardLikeVO boardLike = service.boardLike(vo);
+		
+		if (boardLike != null) {
+			int didNum = boardLike.getIsUseLike();
+			if(didNum == 1) {
+				boardLike.setIsUseLike(didNum-1);
+				result = 0;
+			}else {
+				boardLike.setIsUseLike(didNum+1);
+				result = 1;
+			}
+			service.boardLikeModify(boardLike);
+
+		}else {
+			service.boardLikeInsert(vo);
+			result = 1;
+		}
+		
+		return result; 
+	}
+
+	
 }
 
 

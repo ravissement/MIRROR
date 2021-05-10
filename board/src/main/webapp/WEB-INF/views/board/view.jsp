@@ -34,6 +34,7 @@
 .imgThumb { position: absolute; opacity: 0.4; position:absolute; top:0; left:0; width: 100%; height:100%; z-index: -100;}
 .imgThumb_in {width:100%; height:100%; object-fit: cover; border-radius: 50%;}
 .fontString {font-weight: bold;}
+
 </style>
 
 
@@ -46,19 +47,32 @@
 </div>	
 	
 <div class="container">
-	
 	<div  class="titleInput">
 		${view.title}
 	</div>
 	<div  class="subTitleInput">
 		${view.subTitle}
 	</div>
+	
 	<c:if test="${member.user_id eq view.writer}">
 		<div class="btnSort-set">
 			<a href="/board/modify?bno=${view.bno}">수정</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<a href="/board/delete?bno=${view.bno}" onclick="return confirm('Are you sure?')">삭제</a>
 		</div>
 	</c:if>
+	<c:if test="${member.user_id ne view.writer}">
+		<div class="btnSort-set">
+			
+			<c:if test="${isUseLike eq 'N'}">
+				<a href="#"><i class="far fa-heart" style="font-size: 2.0em;" id="likeExpress"></i></a>
+			</c:if>
+			<c:if test="${isUseLike eq 'Y'}">
+				<a href="#"><i class="fas fa-heart" style="font-size: 2.0em;" id="likeExpress"></i></a>
+			</c:if>
+		</div>
+	</c:if>
+	
+	
 	<div class="writerSide">
 	By ${view.writer}
 	</div>
@@ -78,6 +92,7 @@
 				<p style="font-weight:bold;">${reply.writer} / <fmt:formatDate value="${reply.regDate}" pattern="yyyy-MM-dd"/></p>
 				<p>${reply.content}</p>
 			</div>
+			
 			<c:if test="${member.user_id eq view.writer}">		
 				<a href="/reply/delete?bno=${view.bno}&rno=${reply.rno}" onclick="return confirm('Are you sure?')" class="fontString">삭제</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<a href="#" onclick="checkModify(${view.bno}, ${reply.rno}, '${reply.writer}', '${reply.content}')" class="fontString">댓글 수정</a>
@@ -102,6 +117,7 @@
 	<!-- 댓글 끝 -->
 </div>
 <script>
+
 
 function checkModify(bno, rno, writer, content) {
 	var cell = document.getElementById("replyBoard"+rno);
@@ -160,6 +176,39 @@ function modify() {
 	myform2.submit();
 	//alert("ok");
 };
+
+
+$('#likeExpress').click(function() {
+	var bno = "${view.bno}"; 	
+	var user_id = "${member.user_id}";
+	$.ajax({
+		
+        url: '/board/boardLike?bno='+bno+'&user_id='+user_id,
+        type: 'POST',
+        dataType : 'json',
+        success: function(data){
+        		if(data == 1) {
+	            $('#likeExpress').removeClass( 'far fa-heart' );
+	            $('#likeExpress').addClass( 'fas fa-heart' );
+        		}else {
+	            $('#likeExpress').removeClass( 'fas fa-heart' );
+	            $('#likeExpress').addClass( 'far fa-heart' );
+        		}
+            
+        },
+				error:function(request,status,error){
+					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+					console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				
+				}
+    })	
+	
+});
+
+
+
+
+
 </script>
 
 </body>

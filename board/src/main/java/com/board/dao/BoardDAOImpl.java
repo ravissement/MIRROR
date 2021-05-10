@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.board.domain.BoardLikeVO;
 import com.board.domain.BoardVO;
 
 @Repository
@@ -132,6 +133,23 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public List<BoardVO> homeList(int limit) throws Exception {
 		return sql.selectList(namespace + ".homeList", limit);
+	}
+
+	
+	
+	@Override
+	public int boardLikeInsert(BoardLikeVO vo) throws Exception {
+		return sql.insert(namespace + ".boardLikeInsert", vo);
+	}
+
+	@Override
+	public BoardLikeVO boardLike(BoardLikeVO vo) throws Exception {
+		return sql.selectOne(namespace + ".boardLike", vo);
+	}
+
+	@Override
+	public int boardLikeModify(BoardLikeVO vo) throws Exception {
+		return sql.update(namespace + ".boardLikeModify", vo);
 	}
 	
 	

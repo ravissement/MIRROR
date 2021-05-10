@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.board.dao.BoardDAO;
+import com.board.domain.BoardLikeVO;
 import com.board.domain.BoardVO;
 
 @Service
@@ -93,6 +94,21 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public List<BoardVO> homeList(int limit) throws Exception {
 		return dao.homeList(limit);
+	}
+
+	@Override
+	public int boardLikeInsert(BoardLikeVO vo) throws Exception {
+		return dao.boardLikeInsert(vo);
+	}
+
+	@Override
+	public BoardLikeVO boardLike(BoardLikeVO vo) throws Exception {
+		return dao.boardLike(vo);
+	}
+
+	@Override
+	public int boardLikeModify(BoardLikeVO vo) throws Exception {
+		return dao.boardLikeModify(vo);
 	}
 
 	
