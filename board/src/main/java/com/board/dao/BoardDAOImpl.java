@@ -137,6 +137,10 @@ public class BoardDAOImpl implements BoardDAO {
 
 	
 	
+	
+	
+	
+	
 	@Override
 	public int boardLikeInsert(BoardLikeVO vo) throws Exception {
 		return sql.insert(namespace + ".boardLikeInsert", vo);
@@ -152,6 +156,11 @@ public class BoardDAOImpl implements BoardDAO {
 		return sql.update(namespace + ".boardLikeModify", vo);
 	}
 
+	
+	
+	
+	
+	
 	@Override
 	public List<BoardVO> bestList(int displayPost, int postNum, String searchType, String keyword) throws Exception {
 		
@@ -165,6 +174,17 @@ public class BoardDAOImpl implements BoardDAO {
 		
 		return sql.selectList(namespace + ".bestList", data);
 		
+	}
+
+	@Override
+	public int bestCount(String searchType, String keyword) throws Exception {
+		
+		HashMap<String, Object> data = new HashMap<String, Object>();
+		
+		data.put("searchType", searchType);
+		data.put("keyword", keyword);
+		
+		return sql.selectOne(namespace + ".bestCount", data);
 	}
 	
 	

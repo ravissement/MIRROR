@@ -11,17 +11,18 @@
 	<!-- 홈 리스트 -->
 	<select id="homeList" parameterType="int" resultType="com.board.domain.BoardVO">
 		select  
-			bno, title, subTitle, content, boardThumbnail, ori_boardThumbnail, writer, regDate, viewCnt
-		from board.tbl_board
-		order by regDate DESC LIMIT #{limit}
+			(select COUNT(*) from board.tbl_reply AS b3 where b3.bno = b.bno) as cnt, b.bno, title, subTitle, content, boardThumbnail, ori_boardThumbnail, writer, b.regDate, viewCnt, (select COUNT(*) from board.tbl_board_like AS b4 WHERE b4.bno = b.bno AND isUseLike=1) as likeCnt
+		from board.tbl_board as b
+		left join board.tbl_board_like as b2 ON b.bno = b2.bno
+		order by likeCnt DESC LIMIT #{limit}
 	</select>
 	
 	
 	<!-- 게시물 목록 + 페이징 + 검색 -->
 	<select id="listPageSearch" parameterType="hashMap" resultType="com.board.domain.BoardVO">
 		 select
-		 	(select COUNT(*) from board.tbl_reply where bno = board.tbl_board.bno) as cnt, bno, title, subTitle, content, ori_boardThumbnail, boardThumbnail, writer, regDate, viewCnt
-		 from board.tbl_board
+		 	(select COUNT(*) from board.tbl_reply AS b3 where b3.bno = b.bno) as cnt, b.bno, title, subTitle, content, boardThumbnail, ori_boardThumbnail, writer, b.regDate, viewCnt, (select COUNT(*) from board.tbl_board_like AS b4 WHERE b4.bno = b.bno AND isUseLike=1) as likeCnt
+		 from board.tbl_board AS b
 		 
 		 <if test='searchType.equals("title")'>
 		  WHERE title LIKE concat('%', #{keyword}, '%')
@@ -40,7 +41,7 @@
 		  WHERE writer LIKE concat('%', #{keyword}, '%')
 		 </if>
 		 
-		 	order by bno desc
+		 	order by b.bno desc
 		  limit #{displayPost}, #{postNum}
 	</select> 
 	
@@ -51,7 +52,7 @@
 	
 	<!-- BEST 게시글 -->
 	<select id="bestList" parameterType="hashMap" resultType="com.board.domain.BoardVO">
-		SELECT b.bno, b2.title, b2.content, b2.writer, b2.regDate, b2.viewCnt, ori_boardThumbnail, boardThumbnail, SUM(b.isUseLike) AS likeCnt 
+		SELECT (select COUNT(*) from board.tbl_reply AS b3 WHERE b3.bno = b.bno) as cnt, b.bno, b2.title, b2.content, b2.writer, b2.regDate, b2.viewCnt, ori_boardThumbnail, boardThumbnail, SUM(b.isUseLike) AS likeCnt 
 		FROM board.tbl_board_like AS b
 		LEFT JOIN board.tbl_board AS b2 ON b.bno = b2.bno
 		
@@ -73,8 +74,35 @@
 		 </if>
 		
 		GROUP BY bno ORDER BY likeCnt DESC
+		limit #{displayPost}, #{postNum}
 	</select>
 	
+	
+	
+	<!-- 게시물 총 갯수 + 검색 적용 -->
+	<select id="bestCount" parameterType="hashMap" resultType="int">
+		SELECT count(DISTINCT b.bno) 
+		FROM board.tbl_board_like as b LEFT JOIN board.tbl_board AS b2
+		ON  b.bno = b2.bno
+		
+		 <if test='searchType.equals("title")'>
+		  WHERE title LIKE concat('%', #{keyword}, '%')
+		 </if>
+		 
+		 <if test='searchType.equals("content")'>
+		  WHERE content LIKE concat('%', #{keyword}, '%')
+		 </if>
+		 
+		 <if test='searchType.equals("title_content")'>
+		  WHERE title LIKE concat('%', #{keyword}, '%') 
+		   or content LIKE concat('%', #{keyword}, '%')
+		 </if>
+		 
+		 <if test='searchType.equals("writer")'>
+		  WHERE writer LIKE concat('%', #{keyword}, '%')
+		 </if>
+		
+	</select>
 	
 	
 <!--************************************************************************************* user 개인 *************************************************************************************-->
@@ -83,8 +111,8 @@
 	<!-- 게시물 목록 + 페이징 + 검색 -->
 	<select id="userList" parameterType="hashMap" resultType="com.board.domain.BoardVO">
 		 select
-		  (select COUNT(*) from board.tbl_reply where bno = board.tbl_board.bno) as cnt, bno, title, subTitle, content, ori_boardThumbnail, boardThumbnail, writer, regDate, viewCnt
-		 from board.tbl_board
+		 	(select COUNT(*) from board.tbl_reply AS b3 where b3.bno = b.bno) as cnt, b.bno, title, subTitle, content, boardThumbnail, ori_boardThumbnail, writer, b.regDate, viewCnt, (select COUNT(*) from board.tbl_board_like AS b4 WHERE b4.bno = b.bno AND isUseLike=1) as likeCnt
+		 from board.tbl_board AS b
 		 
 		 <if test='searchType.equals("title")'>
 		  WHERE writer=#{user_id} AND title LIKE concat('%', #{keyword}, '%')

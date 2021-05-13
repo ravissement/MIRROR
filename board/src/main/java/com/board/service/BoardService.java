@@ -67,5 +67,7 @@ public interface BoardService {
 	//BEST 게시글
 	public List<BoardVO> bestList(int displayPost, int postNum, String searchType, String keyword) throws Exception;
 	
+	//BEST 총 갯수 + 검색 적용
+	public int bestCount(String searchType, String keyword) throws Exception;
 	
 }

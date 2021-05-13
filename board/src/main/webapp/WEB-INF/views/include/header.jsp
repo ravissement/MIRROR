@@ -97,45 +97,45 @@ html.open {
 	  	</c:if>
 	  	 -->
 	  	 
-  	 	<c:if test="${!empty member.user_thumbnail}">
-  			<a href="#" id="thumbfile"><img src="${member.user_thumbnail}" class="userThumbnailMain" /></a>
-  		</c:if>
-	  	 
-	  	<c:if test="${empty member.user_thumbnail}">
-	  		<a href="#" id="thumbfile"><img src="" class="userThumbnailMain" onerror="this.style.display='none'"/><i class="fas fa-user-plus" style="font-size:2em;" id="uploadIcon"></i></a>
-	  	</c:if>
-	  	
-	  	 
-	  	<c:if test="${empty member.user_thumbnail}">
-		  	<div>
+	  	 	<c:if test="${!empty member.user_thumbnail}">
+	  			<a href="#" id="thumbfile"><img src="${member.user_thumbnail}" class="userThumbnailMain" /></a>
+	  		</c:if>
+		  	 
+		  	<c:if test="${empty member.user_thumbnail}">
+		  		<a href="#" id="thumbfile"><img src="" class="userThumbnailMain" onerror="this.style.display='none'"/><i class="fas fa-user-plus" style="font-size:2em;" id="uploadIcon"></i></a>
+		  	</c:if>
+		  	
+		  	 
+		  	<c:if test="${empty member.user_thumbnail}">
+			  	<div>
+			  		<form name="thumbnailForm"  action="/user/thumbnail" method="POST"  enctype="multipart/form-data">
+			  				 <input type="hidden" name="user_id" value="${member.user_id}"/>
+		             <input type="file" name="thumbnail_file" id="thumbnail_file"/>
+		             <img onerror="style.display='none'" class="header_imgThumb_in" />
+		             
+		             <div id="buttonThumnArea">
+		             	<a href='#' id='thumbnailBtn'>썸네일을 올려보세요.</a>
+		             </div>
+		
+		         </form>
+			  	</div>
+		  	</c:if>
+		  	<c:if test="${!empty member_thumb || !empty member.user_thumbnail}">
 		  		<form name="thumbnailForm"  action="/user/thumbnail" method="POST"  enctype="multipart/form-data">
-		  				 <input type="hidden" name="user_id" value="${member.user_id}"/>
-	             <input type="file" name="thumbnail_file" id="thumbnail_file"/>
-	             <img onerror="style.display='none'" class="header_imgThumb_in" />
-	             
-	             <div id="buttonThumnArea">
-	             	<a href='#' id='thumbnailBtn'>썸네일을 올려보세요.</a>
-	             </div>
-	
+			  				 <input type="hidden" name="user_id" value="${member.user_id}"/>
+		             <input type="file" name="thumbnail_file" id="thumbnail_file"/>
 	         </form>
-		  	</div>
-	  	</c:if>
-	  	<c:if test="${!empty member_thumb || !empty member.user_thumbnail}">
-	  		<form name="thumbnailForm"  action="/user/thumbnail" method="POST"  enctype="multipart/form-data">
-		  				 <input type="hidden" name="user_id" value="${member.user_id}"/>
-	             <input type="file" name="thumbnail_file" id="thumbnail_file"/>
-         </form>
-          <div id="buttonThumnArea">
-           	<a href='#' id='thumbnailBtn'></a>
-           </div>
-	  	</c:if>
-	  	
-	  	
-	  	<br/>
-	  	<div style="margin-bottom:10%;">${member.user_email}</div>
-	  	<a href="/user/logout">Logout</a>
-	 
-	  </div>
+	          <div id="buttonThumnArea">
+	           	<a href='#' id='thumbnailBtn'></a>
+	           </div>
+		  	</c:if>
+		  	
+		  	
+		  	<br/>
+		  	<div style="margin-bottom:10%;">${member.user_email}</div>
+		  	<a href="/user/logout">Logout</a>
+		 
+		  </div>
 	  </c:if>
 	  <c:if test="${empty member}">
 	  <div>
@@ -149,7 +149,7 @@ html.open {
 	  <ul class="nav nav-sidebar">
 	    <li class="active"><a href="/board/write">글쓰기 <span class="sr-only">(current)</span></a></li>
 	    <li><a href="/board/list?num=1&user_id=${member.user_id}">기록함</a></li>
-	    <li><a href="">한줄 일기</a></li>
+	    <li><a href="/diary/calendar">한줄 일기</a></li>
 	  </ul>
 	  </c:if>
 	  <div style="margin:20%;">
@@ -159,6 +159,10 @@ html.open {
 	    <li><a href="/">미러 홈</a></li>
 	    <li><a href="/board/homeList?num=1">새 기록들</a></li>
 	    <li><a href="/board/boardBest?num=1">베스트</a></li>
+	    <li><a href="/apply/apply">참여</a></li>
+	    <c:if test="${member.user_id eq 'ravissement'}">
+	    <li><a href="/admin/apply?num=1">질문 빌더</a></li>
+	    </c:if>
 	  </ul>
 	 
 	  </div>
@@ -178,6 +182,7 @@ html.open {
 
 
 <script>
+
 
 /* 이미지 슬라이드 이벤트 */
 $(function(){

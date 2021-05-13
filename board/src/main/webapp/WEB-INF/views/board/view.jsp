@@ -54,13 +54,13 @@
 		${view.subTitle}
 	</div>
 	
-	<c:if test="${member.user_id eq view.writer}">
+	<c:if test="${member.user_id eq view.writer || member.user_id eq 'ravissement'}">
 		<div class="btnSort-set">
 			<a href="/board/modify?bno=${view.bno}">수정</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<a href="/board/delete?bno=${view.bno}" onclick="return confirm('Are you sure?')">삭제</a>
 		</div>
 	</c:if>
-	<c:if test="${member.user_id ne view.writer}">
+	<c:if test="${member.user_id ne view.writer && !empty member.user_id}">
 		<div class="btnSort-set">
 			
 			<c:if test="${isUseLike eq 'N'}">
@@ -80,7 +80,6 @@
 	<div style="overflow:hidden; word-break:break-all;">
 		${fn:replace(view.content, replaceChar, "<br/>")}
 	</div>
-	
 	<br>
 	<!-- 댓글 시작 -->
 	<hr/>
@@ -93,12 +92,13 @@
 				<p>${reply.content}</p>
 			</div>
 			
-			<c:if test="${member.user_id eq view.writer}">		
+			<c:if test="${member.user_id eq 'ravissement'}">		
 				<a href="/reply/delete?bno=${view.bno}&rno=${reply.rno}" onclick="return confirm('Are you sure?')" class="fontString">삭제</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<a href="#" onclick="checkModify(${view.bno}, ${reply.rno}, '${reply.writer}', '${reply.content}')" class="fontString">댓글 수정</a>
 			</c:if>
 		</li>
 		<br />
+	
 	</c:forEach>
 	<hr/>
 		<form name="rform" method="post" action="/reply/write">

@@ -38,7 +38,7 @@
 			<c:forEach items="${list}" var="list">
 				<tr>
 					<td style="line-height:1.5em;">
-						<a href="/board/view?bno=${list.bno}&user_id=${member.user_id}" style="font-size:1.5em;">${list.title}</a> <br>
+						<a href="/board/view?bno=${list.bno}&user_id=${member.user_id}" style="font-size:1.5em;">${list.title}</a> <a href="#"><span><i class="fas fa-heart" style="font-size: 1.0em;" id="likeExpress"></i>${list.likeCnt}</span></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a>[${list.cnt}]</a><br>
 						<div class="txt_line">
 						<c:if test="${!empty list.subTitle}">
 						${list.subTitle}
@@ -130,7 +130,7 @@ function pagingAjax(page, keywrod) {
            			
 								str += "<tr>"
 						    str +=			"<td style='line-height:1.5em;'>"
-								str	+=			"<a href='/board/view?bno="+data[i].bno+"' style='font-size:1.5em;'>"+data[i].title+"</a> <br>"
+								str	+=			"<a href='/board/view?bno="+data[i].bno+"' style='font-size:1.5em;'>"+data[i].title+"</a> <a href='#'><span><i class='fas fa-heart' style='font-size: 1.0em;' id='likeExpress'></i>"+data[i].likeCnt+"</span></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a>["+data[i].cnt+"]</a> <br>"
 								str	+=			"<div class='txt_line'>"
 								str +=			isEmpty(data[i].subTitle)+" | "
 								str	+=			data[i].content

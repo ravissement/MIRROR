@@ -26,7 +26,8 @@
 		<p>Safari exhibits a bug in which resizing your browser horizontally causes rendering errors in the justified nav that are cleared upon</p>
 		<p>is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been</p>
 		<p>Contrary to popular belief, Lorem Ipsum is not simply random text.</p>
-		<p style="text-align: right;"> Prod. By ravissement55@gmail.com</p>
+		<br />
+		<p style="text-align: right;"> <a>Prod. By ravissement55@gmail.com</a></p>
 		<c:if test="${userJoinName != null}">
 			<script>
 				alert("가입을 축하드립니다.")
@@ -73,17 +74,19 @@
 			</a>
 		</div>
 	</div>
-
+	
+	<br>
+	<hr>
+	
 	<c:if test="${homeList ne null}">
 	<div class="row" style="height:500px;">
 	  <c:forEach items="${homeList}" var="homeList">
 		  <div class="col-lg-4 imgThumb">
 		    <h2 class="text-space-use">${homeList.title}</h2>
-		    <br />
 		    <p class="text-danger text-space-use">
 		    	${homeList.content}
 		    </p>
-		    <p><a href="/board/view?bno=${homeList.bno}">View details »</a></p>
+		    <p><a href="/board/view?bno=${homeList.bno}">View details »</a> &nbsp;&nbsp;&nbsp; <a href="#"><span><i class="fas fa-heart" style="font-size: 1.0em;" id="likeExpress"></i>${homeList.likeCnt}</span></a> &nbsp;&nbsp; <a>[${homeList.cnt}]</a></p>
 		    
 		    <c:if test="${!empty homeList.boardThumbnail}">
 		    	<c:if test="${!fn: contains(homeList.boardThumbnail, 'none.png')}">

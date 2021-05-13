@@ -89,13 +89,18 @@ public class BoardServiceImpl implements BoardService {
 	
 	
 	
-	
+	//MAIN PAGE
 
 	@Override
 	public List<BoardVO> homeList(int limit) throws Exception {
 		return dao.homeList(limit);
 	}
 
+
+	
+	
+	//좋아요 기능
+	
 	@Override
 	public int boardLikeInsert(BoardLikeVO vo) throws Exception {
 		return dao.boardLikeInsert(vo);
@@ -111,9 +116,18 @@ public class BoardServiceImpl implements BoardService {
 		return dao.boardLikeModify(vo);
 	}
 
+	
+	
+	//베스트 글
+	
 	@Override
 	public List<BoardVO> bestList(int displayPost, int postNum, String searchType, String keyword) throws Exception {
 		return dao.bestList(displayPost, postNum, searchType, keyword);
+	}
+
+	@Override
+	public int bestCount(String searchType, String keyword) throws Exception {
+		return dao.bestCount(searchType, keyword);
 	}
 
 

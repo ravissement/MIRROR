@@ -36,7 +36,7 @@
 			<c:forEach items="${bestList}" var="bestList">
 				<tr>
 					<td style="line-height:1.5em;">
-						<a href="/board/view?bno=${bestList.bno}&user_id=${member.user_id}" style="font-size:1.5em;">${bestList.title}</a> <a href="#"><span><i class="fas fa-heart" style="font-size: 1.0em;" id="likeExpress"></i>${bestList.likeCnt}</span></a><br>
+						<a href="/board/view?bno=${bestList.bno}&user_id=${member.user_id}" style="font-size:1.5em;">${bestList.title}</a> <a href="#"><span><i class="fas fa-heart" style="font-size: 1.0em;" id="likeExpress"></i>${bestList.likeCnt}</span></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a>[${bestList.cnt}]</a> <br>
 						<div class="txt_line">
 						<c:if test="${!empty bestList.subTitle}">
 						${bestList.subTitle}
@@ -116,18 +116,18 @@ function pagingAjax(page, keywrod) {
             if (data != "") {
             	
             	for(i=0; i<data.length; i++){
-            		console.log(data[i]);
+            		//console.log(data[i]);
             		var timestamp = data[i].regDate
              	 	var date = new Date(timestamp);
 								var noneImg = data[i].boardThumbnail.indexOf("none.png")
            			
             		formatReg = getFormatDate(date);
            			//console.log(data[i].boardThumbnail);
-								console.log(noneImg);
+								//console.log(noneImg);
            			
 								str += "<tr>"
 						    str +=			"<td style='line-height:1.5em;'>"
-								str	+=			"<a href='/board/view?bno="+data[i].bno+"&user_id=${member.user_id}' style='font-size:1.5em;'>"+data[i].title+"</a> <a href='#'><span><i class='fas fa-heart' style='font-size: 1.0em;' id='likeExpress'></i>"+data[i].likeCnt+"</span></a> <br>"
+								str	+=			"<a href='/board/view?bno="+data[i].bno+"&user_id=${member.user_id}' style='font-size:1.5em;'>"+data[i].title+"</a> <a href='#'><span><i class='fas fa-heart' style='font-size: 1.0em;' id='likeExpress'></i>"+data[i].likeCnt+"</span></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a>["+data[i].cnt+"]</a> <br>"
 								str	+=			"<div class='txt_line'>"
 								str +=			isEmpty(data[i].subTitle)+" | "
 								str	+=			data[i].content

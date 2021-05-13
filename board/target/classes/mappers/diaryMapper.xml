@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.board.mappers.diary">
+
+	<!-- 다이어리 리스트 -->	
+	<select id="list" parameterType="hashMap" resultType="com.board.domain.UserDiaryVO" >
+		select dno, diaryYear, diaryAnswer, regDate
+		from board.tbl_userDiary
+		WHERE diaryMonth = #{diaryMonth} AND diaryDay = #{diaryDay} AND user_id = #{user_id} AND IsUse = 1
+		ORDER BY diaryYear DESC
+		limit #{displayPost}, #{postNum}
+	</select>	
+
+	<!-- 다이어리 카운트 -->	
+	<select id="diaryCount" parameterType="hashMap" resultType="int">
+		select count(dno)
+		from board.tbl_userDiary
+		WHERE diaryMonth = #{diaryMonth} AND diaryDay = #{diaryDay} AND user_id = #{user_id} AND IsUse = 1
+	</select>
+	
+	<!-- 다이어리 질문 -->
+	<select id="diaryQuestion" parameterType="hashMap" resultType="com.board.domain.DiaryQuestionVO">
+		SELECT diaryMonth, diaryDay, diaryQuestion, diaryQuestionEng FROM board.tbl_diaryquestion 
+		WHERE diaryMonth = #{diaryMonth} AND diaryDay = #{diaryDay}
+	</select>
+	
+	<!--다이어리 작성 -->
+	<insert id="diaryWrite" parameterType="com.board.domain.UserDiaryVO" useGeneratedKeys="true" keyProperty="dno">
+		insert into
+			board.tbl_userDiary(diaryYear, diaryMonth, diaryDay, diaryAnswer, user_id)
+				values(#{diaryYear}, #{diaryMonth}, #{diaryDay}, #{diaryAnswer}, #{user_id})
+	</insert>
+	
+	<!-- 다이어리 저장여부 확인 -->
+	<select id="diaryView" parameterType="com.board.domain.UserDiaryVO" resultType="int">
+		select count(dno)
+		from board.tbl_userDiary
+		WHERE diaryYear = #{diaryYear} AND diaryMonth = #{diaryMonth} AND diaryDay = #{diaryDay} AND user_id = #{user_id} AND IsUse = 1
+	</select>
+	
+	<!-- 다이어리 수정 -->
+	<update id="diaryModify" parameterType="com.board.domain.UserDiaryVO">
+		update board.tbl_userDiary
+		set diaryAnswer = #{diaryAnswer}, regDate = SYSDATE()	
+		WHERE diaryYear = #{diaryYear} AND diaryMonth = #{diaryMonth} AND diaryDay = #{diaryDay} AND user_id = #{user_id} AND IsUse = 1
+	</update>
+	
+	
+	
+
+
+
+
+	
+	
+	<!--한줄참여 질문 작성 -->
+	<insert id="applyQuestion" parameterType="com.board.domain.ApplyQuestionVO" useGeneratedKeys="true" keyProperty="ano">
+		insert into
+			board.tbl_applyQuestion(diaryMonth, diaryDay, diaryQuestion, diaryQuestionEng, user_id)
+				values(#{diaryMonth}, #{diaryDay}, #{diaryQuestion}, #{diaryQuestionEng}, #{user_id})
+	</insert>
+	
+	<!-- 한줄참여 리스트 -->
+	<select id="applyList" parameterType="hashMap" resultType="com.board.domain.ApplyQuestionVO">
+		select diaryMonth, diaryDay, diaryQuestion, diaryQuestionEng, user_id, regDate
+		from board.tbl_applyQuestion
+		where isUse = 1
+		 <if test='searchType.equals("diaryMonth")'>
+		  AND diaryMonth = #{keyword}
+		 </if>
+		order by ano desc
+	  limit #{displayPost}, #{postNum}
+	</select>
+	
+	<!-- 한줄참여 총 갯수 -->
+	<select id="applyListCount" parameterType="hashMap" resultType="int">
+		select count(*)
+		from board.tbl_applyQuestion
+		where isUse = 1
+		<if test='searchType.equals("diaryMonth")'>
+		  AND diaryMonth = #{keyword}
+		 </if>
+	</select>
+	
+	<!-- 다이어리 캘린더 -->
+	<select id="applyCalendar" parameterType="String" resultType="com.board.domain.DiaryQuestionVO">
+		select qno, diaryMonth, diaryDay
+		from board.tbl_diaryQuestion
+		where diaryMonth = #{diaryMonth}
+	</select>
+	
+
+
+
+	
+</mapper>
+
+
+
+
+

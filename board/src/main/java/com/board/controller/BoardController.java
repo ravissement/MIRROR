@@ -55,7 +55,6 @@ public class BoardController {
 		page.setNum(num);
 		page.setCount(service.searchCount(searchType, keyword));  
 		
-		
 		page.setSearchType(searchType);
 		page.setKeyword(keyword);
 		
@@ -104,7 +103,7 @@ public class BoardController {
 		Page page = new Page();
 		
 		page.setNum(num);
-		page.setCount(service.searchCount(searchType, keyword));  
+		page.setCount(service.bestCount(searchType, keyword));  
 		
 		
 		page.setSearchType(searchType);
@@ -128,7 +127,7 @@ public class BoardController {
 		Page page = new Page();
 		
 		page.setNum(num);
-		page.setCount(service.searchCount(searchType, keyword));  
+		page.setCount(service.bestCount(searchType, keyword));  
 		
 		page.setSearchType(searchType);
 		page.setKeyword(keyword);
@@ -341,7 +340,7 @@ public class BoardController {
 	*/
 	//게시물 조회
 	@RequestMapping(value="/view", method = RequestMethod.GET)
-	public void getView(@RequestParam("bno") int bno, @RequestParam("user_id") String user_id, Model model) throws Exception {
+	public void getView(@RequestParam("bno") int bno, @RequestParam(value="user_id", required=false) String user_id, Model model) throws Exception {
 		
 		BoardVO vo = service.view(bno);
 		model.addAttribute("view", vo);
@@ -390,12 +389,23 @@ public class BoardController {
 		//String originalFilename = vo.getUser_id() + "_thumbnail.png";
 		if(file.getSize() != 0) {
 			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
+			vo.setOri_boardThumbnail(File.separator + "boardThumbnail" + ymdPath + File.separator + fileName);
+			vo.setBoardThumbnail(File.separator + "boardThumbnail" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
+		
 		} else {
-			fileName = uploadPath + File.separator + "boardThumbnail" + File.separator + "none.png";
+			BoardVO chkVO = service.view(vo.getBno());
+			if(chkVO.getBoardThumbnail() == null) {
+				fileName = uploadPath + File.separator + "boardThumbnail" + File.separator + "none.png";
+				vo.setOri_boardThumbnail(File.separator + "boardThumbnail" + ymdPath + File.separator + fileName);
+				vo.setBoardThumbnail(File.separator + "boardThumbnail" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
+			
+			}else {
+				vo.setOri_boardThumbnail(chkVO.getOri_boardThumbnail());
+				vo.setBoardThumbnail(chkVO.getBoardThumbnail());
+			}
+
 		}
 
-		vo.setOri_boardThumbnail(File.separator + "boardThumbnail" + ymdPath + File.separator + fileName);
-		vo.setBoardThumbnail(File.separator + "boardThumbnail" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
 		
 		service.modify(vo);
 		return "redirect:/board/view?bno="+ vo.getBno();
@@ -501,10 +511,7 @@ public class BoardController {
 	}
 
 	
-	
-	
-	
-	
+
 }
 
 

@@ -36,7 +36,7 @@
 			<c:forEach items="${homeList}" var="homeList">
 				<tr>
 					<td style="line-height:1.5em;">
-						<a href="/board/view?bno=${homeList.bno}&user_id=${member.user_id}" style="font-size:1.5em;">${homeList.title}</a> <br>
+						<a href="/board/view?bno=${homeList.bno}&user_id=${member.user_id}" style="font-size:1.5em;">${homeList.title}</a> <a href="#"><span><i class="fas fa-heart" style="font-size: 1.0em;" id="likeExpress"></i>${homeList.likeCnt}</span></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a>[${homeList.cnt}]</a> <br>
 						<div class="txt_line">
 						<c:if test="${!empty homeList.subTitle}">
 						${homeList.subTitle}
@@ -127,7 +127,7 @@ function pagingAjax(page, keywrod) {
            			
 								str += "<tr>"
 						    str +=			"<td style='line-height:1.5em;'>"
-								str	+=			"<a href='/board/view?bno="+data[i].bno+"&user_id=${member.user_id}' style='font-size:1.5em;'>"+data[i].title+"</a> <br>"
+								str	+=			"<a href='/board/view?bno="+data[i].bno+"&user_id=${member.user_id}' style='font-size:1.5em;'>"+data[i].title+"</a> <a href='#'><span><i class='fas fa-heart' style='font-size: 1.0em;' id='likeExpress'></i>"+data[i].likeCnt+"</span></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a>["+ data[i].cnt +"]</a> <br>"
 								str	+=			"<div class='txt_line'>"
 								str +=			isEmpty(data[i].subTitle)+" | "
 								str	+=			data[i].content
