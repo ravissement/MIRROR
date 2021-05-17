@@ -33,6 +33,8 @@ public interface DiaryDAO {
 	//한줄질문 참여
 	public int applyQuestion(ApplyQuestionVO vo) throws Exception;
 	
+	// admin 한줄질문 참여
+	public int adminApplyQuestion(ApplyQuestionVO vo) throws Exception;
 	
 	//한줄질문 리스트
 	public List<ApplyQuestionVO> applyList(int displayPost, int postNum, String searchType, String keyword) throws Exception; 

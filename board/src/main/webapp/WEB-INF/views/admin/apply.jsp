@@ -54,7 +54,8 @@
 						<a class="diaryQuestion">${applyList.diaryQuestion}</a> <br>
 						<span class="diaryQuestionEng">${applyList.diaryQuestionEng}</span> <br>
 						${applyList.user_id} /
-						<span style="font-size:0.6em;"><fmt:formatDate value="${applyList.regDate}" pattern="yyyy-MM-dd" /></span>
+						<span style="font-size:0.6em;"><fmt:formatDate value="${applyList.regDate}" pattern="yyyy-MM-dd" /></span> <br />
+						<span>${applyList.user_email} / ${applyList.user_phone}</span>
 					</td>
 				</tr>
 			</c:forEach>
@@ -87,8 +88,7 @@
 	
 	
 	
-	<form name="aform" method="post" action="/diary/applyQuestion">
-		<input type="hidden" name="user_id" value="${member.user_id}" />
+	<form name="aform" method="post" action="/admin/applyQuestion">
 		<p>
 			Month : 
 			<select name="diaryMonth" id="diaryMonth" class="selectpicker">
@@ -116,6 +116,8 @@
 			<input type="text" name="diaryQuestion" id="diaryQuestion" class="form-control" placeholder="write Question" />
 			<br />
 			<input type="text" name="diaryQuestionEng" id="diaryQuestionEng" class="form-control" placeholder="write Question in English" />
+			<br />
+			<input type="text" name="user_id" value="${member.user_id}" />
 	</form>
 	<br>
 	<p style="text-align: center;"><input type="button" id="submitBtn" class="buttonJoinCustom" value="업로드"/></p>
@@ -280,7 +282,7 @@ $('#submitBtn').click(function() {
 	var queryString = $('form[name=aform]').serialize();
 	
 	$.ajax({
-        url: '/apply/applyQuestion',
+        url: '/admin/applyQuestion',
         type: 'POST',
         data : queryString,
         dataType : 'json',

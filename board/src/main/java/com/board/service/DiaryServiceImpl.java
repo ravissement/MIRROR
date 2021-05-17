@@ -79,4 +79,10 @@ public class DiaryServiceImpl implements DiaryService {
 		return dao.applyCalendar(diaryMonth);
 	}
 
+
+	@Override
+	public int adminApplyQuestion(ApplyQuestionVO vo) throws Exception {
+		return dao.adminApplyQuestion(vo);
+	}
+
 }

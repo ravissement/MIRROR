@@ -8,6 +8,8 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
 <!DOCTYPE html>
 <html>
 <style>
@@ -34,6 +36,7 @@
 		border-radius:10px;
 		margin-bottom: 5px;
 	}
+	.google-nanum {font-family: 'Nanum Myeongjo', serif; font-weight: bold;}
 </style>
 
 <head>
@@ -47,15 +50,29 @@
 
 <div class="container">
 	
-	<h1>It's your MIRROR</h1>
-	<p>Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
-	<p>Safari exhibits a bug in which resizing your browser horizontally causes rendering errors in the justified nav that are cleared upon</p>
-	<p>is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been</p>
-	<p>Contrary to popular belief, Lorem Ipsum is not simply random text.</p>
+	<h1 class="google-nanum">It's your MIRROR</h1>
+	<p class="google-nanum">당신의 거울, MIRROR</p>
+	<br />
+	<p class="google-nanum">여러분의 참여를 기대합니다.</p>
+	<br />
+	<p class="google-nanum">미러는 이용자분들께 정보와 해답을 제공해주는 곳이 아닌 여러분 모두에게 질문을 던지는 곳이였으면 합니다.</p>
+	<p class="google-nanum">대답에 선결되는 질문의 중요도를 저는 오래전부터 고심해왔습니다.</p>
+	<p class="google-nanum">섣불리 해답을 내놓을 수 있는 능력은 없지만, 속으로 천천히 삭힌 질문들은 책속의 글귀보다, 과학의 법칙보다 중요할 때가 종종 있는 것 같습니다.</p> 
+	<p class="google-nanum">각자가 갇고 있는 소중한 혹은 단순한 그 질문들을 미러는 기다리고 있습니다.</p> 
+	<p class="google-nanum">짧지만 많은 생각을 불러일으키는 질문들을 던져주시면 감사하겠습니다.</p>
+	<br />
+	<p class="google-nanum">P.S. 참여한 질문은 확인 후 한줄일기의 질문으로 등록됩니다.</p>
 	<br/>
 	<p style="text-align: right;"><a>Prod. By ravissement55@gmail.com</a></p>
 	
 	<div style="height:20%;"></div>
+	<p class="diaryQuestionEng">ex)</p>
+	<p class="diaryQuestion"><a>진실을 쫓는가? 사실을 쫓는가?</a></p>
+	<p class="diaryQuestionEng">Are you after the truth? Are you chasing the facts?</p>
+	<br>
+	<p class="diaryQuestion"><a>나에게 시간은 .....다</a></p>
+	<p class="diaryQuestionEng">Time is ..... for me</p>
+	<hr>
 	<form name="uform" method="post" action="/diary/applyQuestion">
 		<input type="hidden" name="user_id" value="${member.user_id}" />
 		<p>

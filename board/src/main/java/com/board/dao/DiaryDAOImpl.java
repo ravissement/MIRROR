@@ -110,6 +110,11 @@ public class DiaryDAOImpl implements DiaryDAO {
 	public List<DiaryQuestionVO> applyCalendar(String diaryMonth) throws Exception {
 		return sql.selectList(namespace + ".applyCalendar", diaryMonth);
 	}
+
+	@Override
+	public int adminApplyQuestion(ApplyQuestionVO vo) throws Exception {
+		return sql.insert(namespace + ".adminApplyQuestion", vo);
+	}
 	
 	
 	

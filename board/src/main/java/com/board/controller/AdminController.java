@@ -52,7 +52,8 @@ public class AdminController {
 	@RequestMapping(value = "/applyQuestion", method = RequestMethod.POST)
 	public Object postApplyQuestion(Model model, ApplyQuestionVO vo) throws Exception {
 		
-		int result = service.applyQuestion(vo);
+		int result = service.adminApplyQuestion(vo);
+		
 		
 		return result;
 	}

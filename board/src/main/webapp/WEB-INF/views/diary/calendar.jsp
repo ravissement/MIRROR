@@ -8,6 +8,9 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
+<html>
 <!DOCTYPE html>
 <html>
 <style>
@@ -21,6 +24,7 @@
 	}
   .diaryQuestion { font-weight: bold; font-size: 1.1em;}
 	.diaryQuestionEng { font-weight: bold; font-size: 0.8em; color:#969696		}
+	.google-nanum {font-family: 'Nanum Myeongjo', serif; font-weight: bold;}
 </style>
 
 <head>
@@ -35,6 +39,8 @@
 
 
 <div class="container">
+	
+
 	<p style="text-align:center;">
 		<a class="diaryQuestion">원하는 날짜를 클릭해보세요.</a> <br/>
 		<span class="diaryQuestionEng">Please click date what you want.</span>
@@ -55,6 +61,11 @@
             <td align="center"><font color=#7ED5E4>Sat</font></td>
         </tr>
     </table>
+	<hr />
+	<p class="google-nanum">한줄일기는 1년 365일, 365개의 질문이 준비된 문답식 일기장입니다. 매일 준비된 질문에 대해 자신만의 생각이나 경험을 글로 옮깁니다.</p>
+	<p class="google-nanum">그렇게 쌓여간 글들은 몇년 후 타임캡슐처럼 꺼내 보게 될 것입니다. 같은 질문에 대해 매년 자신의 생각이 어떻게 변화해 왔는지 엿볼 수 있을 것입니다.</p>
+	<p class="google-nanum">이 한줄일기는 어려운 일기쓰기에 효과적인 무기가 되어 줄 것입니다. 하루를 돌아보는 짧은 질문하나는 이미 준비되어 있으니 당신은 5분만 준비하시면 되겠네요.</p>
+	<p class="google-nanum">일기란게 꼭 길어야만 하는 법은 아니니까요. </p>
 </div>    
 
 </body>

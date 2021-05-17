@@ -33,6 +33,7 @@
 	<br>
 	<p><a class="diaryQuestion">${diaryQuestion.diaryQuestion}</a></p>
 	<p class="diaryQuestionEng">| ${diaryQuestion.diaryQuestionEng}</p>
+	<!-- <p class="diaryQuestionEng">By ${diaryQuestion.user_id}</p>  -->
 	<hr>
 	<form name="aform" method="post" action="/diary/diaryWrite">
 		<input type="hidden" name="diaryYear" value="" />

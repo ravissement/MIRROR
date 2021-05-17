@@ -6,6 +6,8 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
 <html>
 <head>
 	<title>Home</title>
@@ -15,17 +17,24 @@
 .imgThumb {height: 300px;}
 .imgThumb_in {width:90%; height:90%; object-fit: cover;}
 .text-space-use {text-overflow: display: inline-block; width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
-
+.google-nanum {font-family: 'Nanum Myeongjo', serif; font-weight: bold;}
 </style>
 <%@ include file="include/header.jsp" %>
 
 <div class="container" >
 	
-		<h1>It's your MIRROR</h1>
-		<p>Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
-		<p>Safari exhibits a bug in which resizing your browser horizontally causes rendering errors in the justified nav that are cleared upon</p>
-		<p>is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been</p>
-		<p>Contrary to popular belief, Lorem Ipsum is not simply random text.</p>
+		<h1 class="google-nanum">It's your MIRROR</h1>
+		<p class="google-nanum">당신의 거울, MIRROR</p>
+		<br />
+		<p class="google-nanum">소크라테스는 말했습니다. '검토하지 않는 삶은 살만한 가치가 없다.'</p>
+		<p class="google-nanum">자신을 검토하는 쉽고, 훌륭한 방법에는 무엇이 있을까요?</p>
+		<p class="google-nanum">스스로를 돌아보고, 그 생각들을 글로 옮겨 적어보는 것이라 생각합니다.</p>
+		<p class="google-nanum">시끄러운 정보와 지식의 바다속에서 잠시 벗어나, 고요한 이곳에서 온전히 자신과 마주하세요.</p> 
+		<p class="google-nanum">공리와 이념도 잠시 내려놓아 보세요. </p> 
+		<p class="google-nanum">순수한 자신을 표현해 보세요.</p>
+		<p class="google-nanum">적어 내려간 글들은 분명 자신을 비춰주는 무엇보다 근사한 거울이 되어있을 겁니다.</p> 
+		<br />
+		<p class="google-nanum">자, 이제 당신을 거울에 비춰보세요. 생각보다 괜찮은 사람일 것입니다.</p>
 		<br />
 		<p style="text-align: right;"> <a>Prod. By ravissement55@gmail.com</a></p>
 		<c:if test="${userJoinName != null}">
@@ -76,8 +85,8 @@
 	</div>
 	
 	<br>
+	<!-- 
 	<hr>
-	
 	<c:if test="${homeList ne null}">
 	<div class="row" style="height:500px;">
 	  <c:forEach items="${homeList}" var="homeList">
@@ -101,7 +110,7 @@
 	  </c:forEach>
 	</div>
   </c:if>
-
+	 -->
  <%@ include file="include/footer.jsp" %>
 
 </div>

@@ -22,7 +22,7 @@
 	
 	<!-- 다이어리 질문 -->
 	<select id="diaryQuestion" parameterType="hashMap" resultType="com.board.domain.DiaryQuestionVO">
-		SELECT diaryMonth, diaryDay, diaryQuestion, diaryQuestionEng FROM board.tbl_diaryquestion 
+		SELECT diaryMonth, diaryDay, diaryQuestion, diaryQuestionEng, user_id FROM board.tbl_diaryquestion 
 		WHERE diaryMonth = #{diaryMonth} AND diaryDay = #{diaryDay}
 	</select>
 	
@@ -62,10 +62,18 @@
 				values(#{diaryMonth}, #{diaryDay}, #{diaryQuestion}, #{diaryQuestionEng}, #{user_id})
 	</insert>
 	
+	<!-- admin 한줄 질문 참여 작성 -->
+	<insert id="adminApplyQuestion" parameterType="com.board.domain.ApplyQuestionVO" useGeneratedKeys="true" keyProperty="ano">
+		insert into
+			board.tbl_diaryQuestion(diaryMonth, diaryDay, diaryQuestion, diaryQuestionEng, user_id)
+				values(#{diaryMonth}, #{diaryDay}, #{diaryQuestion}, #{diaryQuestionEng}, #{user_id})
+	</insert>
+	
+	
 	<!-- 한줄참여 리스트 -->
 	<select id="applyList" parameterType="hashMap" resultType="com.board.domain.ApplyQuestionVO">
-		select diaryMonth, diaryDay, diaryQuestion, diaryQuestionEng, user_id, regDate
-		from board.tbl_applyQuestion
+		select ano, diaryMonth, diaryDay, diaryQuestion, diaryQuestionEng, q.user_id, q.regDate, AES_DECRYPT(UNHEX(user_email),'e') as user_email, AES_DECRYPT(UNHEX(user_phone),'p') as user_phone
+		from board.tbl_applyQuestion AS q LEFT JOIN board.tbl_user AS u ON q.user_id = u.user_id
 		where isUse = 1
 		 <if test='searchType.equals("diaryMonth")'>
 		  AND diaryMonth = #{keyword}
