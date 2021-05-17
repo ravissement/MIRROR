@@ -78,6 +78,13 @@
 
 /* 게시글 작성 */
 $('#writeBtn').click(function(){
+	
+	if(!$('input[name=title]').val()) {
+		alert("제목을 입력해주세요.");
+		$('input[name=title]').focus();
+		return false;
+	}
+	
 	var myform = document.forms["wform"];
 	myform.action = "/board/write";
 	myform.submit();
