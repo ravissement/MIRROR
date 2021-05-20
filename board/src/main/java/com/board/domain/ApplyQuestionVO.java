@@ -5,19 +5,20 @@ import java.util.Date;
 public class ApplyQuestionVO {
 
 /*
-CREATE TABLE tbl_diaryQuestion(
-	qno INT	NOT NULL AUTO_INCREMENT,
-	diaryMonth CHAR(2)	NOT NULL,
-	diaryDay CHAR(2)	NOT NULL,
-	diaryQuestion VARCHAR(500)	NOT NULL,
-	diaryQuestionEng VARCHAR(500)	NOT NULL,
-	user_id	VARCHAR(30)	NOT NULL,
-	regDate	TIMESTAMP	DEFAULT NOW(),
-	isUse CHAR(1) DEFAULT 1,
-	questionVersion CHAR(1) DEFAULT 1,
-	PRIMARY KEY(qno)
+CREATE TABLE tbl_applyquestion(
+ ano INT NOT NULL AUTO_INCREMENT,
+ diaryMonth CHAR(2)	NOT NULL,
+ diaryDay CHAR(2) NOT NULL,
+ diaryQuestion VARCHAR(500)	NOT NULL,
+ diaryQuestionEng VARCHAR(500) NOT NULL,
+ user_id VARCHAR(30) NOT NULL,
+ regDate TIMESTAMP DEFAULT NOW(),
+ isUse CHAR(1) DEFAULT 1,
+ questionVersion CHAR(1) DEFAULT 1,
+ PRIMARY KEY(qno)
 );	
 */
+	private int cnt;
 	private int ano;
 	private int diaryMonth;
 	private int diaryDay;
@@ -30,6 +31,16 @@ CREATE TABLE tbl_diaryQuestion(
 	private int isUse;
 	private int questionVersion;
 	
+	
+	
+	
+	
+	public int getCnt() {
+		return cnt;
+	}
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
 	public String getUser_phone() {
 		return user_phone;
 	}

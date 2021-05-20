@@ -6,10 +6,10 @@ public class BoardLikeVO {
 
 /*
 CREATE TABLE tbl_board_like(
-	bno INT	NOT NULL,
-	user_id	VARCHAR(30),
-	isUseLike CHAR(1) NOT NULL,
-	regDate	TIMESTAMP	DEFAULT NOW()
+ bno INT NOT NULL,
+ user_id VARCHAR(30),
+ isUseLike CHAR(1) NOT NULL,
+ regDate TIMESTAMP DEFAULT NOW()
 );
 */
 	

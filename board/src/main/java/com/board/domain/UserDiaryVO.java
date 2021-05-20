@@ -5,15 +5,15 @@ import java.util.Date;
 public class UserDiaryVO {
 /*
 CREATE TABLE tbl_userDiary(
-	dno INT	NOT NULL AUTO_INCREMENT,
-	diaryYear CHAR(4)	NOT NULL,
-	diaryMonth CHAR(2)	NOT NULL,
-	diaryDay CHAR(2)	NOT NULL,
-	diaryAnswer VARCHAR(200)	NOT NULL,
-	user_id	VARCHAR(30)	NOT NULL,
-	regDate	TIMESTAMP	DEFAULT NOW(),
-	isUse CHAR(1) DEFAULT 1,
-	PRIMARY KEY(dno)
+	dno  INT 	NOT  NULL  AUTO_INCREMENT,
+	diaryYear  CHAR(4)	 NOT  NULL,
+	diaryMonth  CHAR(2)	 NOT  NULL,
+	diaryDay  CHAR(2)	 NOT  NULL,
+	diaryAnswer  VARCHAR(200)	 NOT NULL,
+	user_id	 VARCHAR(30) 	NOT  NULL,
+	regDate	 TIMESTAMP	 DEFAULT  NOW(),
+	isUse  CHAR(1)  DEFAULT  1,
+	PRIMARY  KEY(dno)
 );
 COMMIT;  
  

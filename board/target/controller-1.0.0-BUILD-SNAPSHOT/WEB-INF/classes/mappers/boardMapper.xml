@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.board.mappers.board">
+	
+	
+<!--************************************************************************************* Home & 전체글 *************************************************************************************-->
+	
+	
+	<!-- 홈 리스트 -->
+	<select id="homeList" parameterType="int" resultType="com.board.domain.BoardVO">
+		select  
+			(select COUNT(*) from board.tbl_reply AS b3 where b3.bno = b.bno) as cnt, b.bno, title, subTitle, content, boardThumbnail, ori_boardThumbnail, writer, b.regDate, viewCnt, (select COUNT(*) from board.tbl_board_like AS b4 WHERE b4.bno = b.bno AND isUseLike=1) as likeCnt
+		from board.tbl_board as b
+		left join board.tbl_board_like as b2 ON b.bno = b2.bno
+		order by likeCnt DESC LIMIT #{limit}
+	</select>
+	
+	
+	<!-- 게시물 목록 + 페이징 + 검색 -->
+	<select id="listPageSearch" parameterType="hashMap" resultType="com.board.domain.BoardVO">
+		 select
+		 	(select COUNT(*) from board.tbl_reply AS b3 where b3.bno = b.bno) as cnt, b.bno, title, subTitle, content, boardThumbnail, ori_boardThumbnail, writer, b.regDate, viewCnt, (select COUNT(*) from board.tbl_board_like AS b4 WHERE b4.bno = b.bno AND isUseLike=1) as likeCnt
+		 from board.tbl_board AS b
+		 
+		 <if test='searchType.equals("title")'>
+		  WHERE title LIKE concat('%', #{keyword}, '%')
+		 </if>
+		 
+		 <if test='searchType.equals("content")'>
+		  WHERE content LIKE concat('%', #{keyword}, '%')
+		 </if>
+		 
+		 <if test='searchType.equals("title_content")'>
+		  WHERE title LIKE concat('%', #{keyword}, '%') 
+		   or content LIKE concat('%', #{keyword}, '%')
+		 </if>
+		 
+		 <if test='searchType.equals("writer")'>
+		  WHERE writer LIKE concat('%', #{keyword}, '%')
+		 </if>
+		 
+		 	order by b.bno desc
+		  limit #{displayPost}, #{postNum}
+	</select> 
+	
+	
+	
+	
+	
+	
+	<!-- BEST 게시글 -->
+	<select id="bestList" parameterType="hashMap" resultType="com.board.domain.BoardVO">
+		SELECT (select COUNT(*) from board.tbl_reply AS b3 WHERE b3.bno = b.bno) as cnt, b.bno, b2.title, b2.content, b2.writer, b2.regDate, b2.viewCnt, ori_boardThumbnail, boardThumbnail, SUM(b.isUseLike) AS likeCnt 
+		FROM board.tbl_board_like AS b
+		LEFT JOIN board.tbl_board AS b2 ON b.bno = b2.bno
+		
+		<if test='searchType.equals("title")'>
+		  WHERE title LIKE concat('%', #{keyword}, '%')
+		 </if>
+		 
+		 <if test='searchType.equals("content")'>
+		  WHERE content LIKE concat('%', #{keyword}, '%')
+		 </if>
+		 
+		 <if test='searchType.equals("title_content")'>
+		  WHERE title LIKE concat('%', #{keyword}, '%') 
+		   or content LIKE concat('%', #{keyword}, '%')
+		 </if>
+		 
+		 <if test='searchType.equals("writer")'>
+		  WHERE writer LIKE concat('%', #{keyword}, '%')
+		 </if>
+		
+		GROUP BY bno ORDER BY likeCnt DESC
+		limit #{displayPost}, #{postNum}
+	</select>
+	
+	
+	
+	<!-- 게시물 총 갯수 + 검색 적용 -->
+	<select id="bestCount" parameterType="hashMap" resultType="int">
+		SELECT count(DISTINCT b.bno) 
+		FROM board.tbl_board_like as b LEFT JOIN board.tbl_board AS b2
+		ON  b.bno = b2.bno
+		
+		 <if test='searchType.equals("title")'>
+		  WHERE title LIKE concat('%', #{keyword}, '%')
+		 </if>
+		 
+		 <if test='searchType.equals("content")'>
+		  WHERE content LIKE concat('%', #{keyword}, '%')
+		 </if>
+		 
+		 <if test='searchType.equals("title_content")'>
+		  WHERE title LIKE concat('%', #{keyword}, '%') 
+		   or content LIKE concat('%', #{keyword}, '%')
+		 </if>
+		 
+		 <if test='searchType.equals("writer")'>
+		  WHERE writer LIKE concat('%', #{keyword}, '%')
+		 </if>
+		
+	</select>
+	
+	
+<!--************************************************************************************* user 개인 *************************************************************************************-->
+	
+	
+	<!-- 게시물 목록 + 페이징 + 검색 -->
+	<select id="userList" parameterType="hashMap" resultType="com.board.domain.BoardVO">
+		 select
+		 	(select COUNT(*) from board.tbl_reply AS b3 where b3.bno = b.bno) as cnt, b.bno, title, subTitle, content, boardThumbnail, ori_boardThumbnail, writer, b.regDate, viewCnt, (select COUNT(*) from board.tbl_board_like AS b4 WHERE b4.bno = b.bno AND isUseLike=1) as likeCnt
+		 from board.tbl_board AS b
+		 
+		 <if test='searchType.equals("title")'>
+		  WHERE writer=#{user_id} AND title LIKE concat('%', #{keyword}, '%')
+		 </if>
+		 
+		 <if test='searchType.equals("content")'>
+		  WHERE writer=#{user_id} AND content LIKE concat('%', #{keyword}, '%')
+		 </if>
+		 
+		 <if test='searchType.equals("title_content")'>
+		  WHERE writer=#{user_id} AND title LIKE concat('%', #{keyword}, '%') 
+		   or content LIKE concat('%', #{keyword}, '%')
+		 </if>
+		 
+		 <if test='searchType.equals("writer")'>
+		  WHERE writer=#{user_id} AND writer LIKE concat('%', #{keyword}, '%')
+		 </if>
+		 
+		 order by bno desc
+		  limit #{displayPost}, #{postNum}
+	</select> 
+	
+	
+		<!-- 게시물 총 갯수 + 검색 적용 + 유저개인 -->
+	<select id="userCount" parameterType="hashMap" resultType="int">
+		select count(bno) from board.tbl_board
+		
+		 <if test='searchType.equals("title")'>
+		  WHERE writer = #{user_id} AND title LIKE concat('%', #{keyword}, '%')
+		 </if>
+		 
+		 <if test='searchType.equals("content")'>
+		  WHERE writer = #{user_id} AND LIKE concat('%', #{keyword}, '%')
+		 </if>
+		 
+		 <if test='searchType.equals("title_content")'>
+		  WHERE writer = #{user_id} AND title LIKE concat('%', #{keyword}, '%') 
+		   or content LIKE concat('%', #{keyword}, '%')
+		 </if>
+		 
+		 
+		 <if test='searchType.equals("writer")'>
+		  WHERE writer LIKE concat('%', #{keyword}, '%')
+		 </if>
+		 
+	</select>
+	
+	
+	<!-- 게시물 총 갯수 + 검색 적용 -->
+	<select id="searchCount" parameterType="hashMap" resultType="int">
+		select count(bno) from board.tbl_board
+		
+		 <if test='searchType.equals("title")'>
+		  WHERE title LIKE concat('%', #{keyword}, '%')
+		 </if>
+		 
+		 <if test='searchType.equals("content")'>
+		  WHERE content LIKE concat('%', #{keyword}, '%')
+		 </if>
+		 
+		 <if test='searchType.equals("title_content")'>
+		  WHERE title LIKE concat('%', #{keyword}, '%') 
+		   or content LIKE concat('%', #{keyword}, '%')
+		 </if>
+		 
+		 <if test='searchType.equals("writer")'>
+		  WHERE writer LIKE concat('%', #{keyword}, '%')
+		 </if>
+		
+	</select>
+	
+
+	<!--게시물 작성 -->
+	<insert id="write" parameterType="com.board.domain.BoardVO" useGeneratedKeys="true" keyProperty="bno">
+		insert into
+			board.tbl_board(title, subTitle, content, writer, ori_boardThumbnail, boardThumbnail)
+				values(#{title}, #{subTitle}, #{content}, #{writer}, #{ori_boardThumbnail}, #{boardThumbnail})
+	</insert>
+
+	
+	<!-- 게시물 조회 -->
+	<select id="view" parameterType="int" resultType="com.board.domain.BoardVO">
+		select
+			bno, title, subTitle, content, ori_boardThumbnail, boardThumbnail, writer, regDate, viewCnt
+		from
+			board.tbl_board
+		where
+			bno = #{bno}
+	</select>
+
+	<!-- 게시물 수정 -->
+	<update id="modify" parameterType="com.board.domain.BoardVO">
+		update board.tbl_board
+			set
+				title = #{title},
+				subTitle = #{subTitle},
+				content = #{content},
+				writer = #{writer},
+				ori_boardThumbnail = #{ori_boardThumbnail},
+				boardThumbnail = #{boardThumbnail}
+			where bno = #{bno}
+	</update>
+	
+	
+	<!-- 게시물 삭제 -->
+	<delete id="delete" parameterType="int">
+		delete
+			from board.tbl_board
+		where bno = #{bno}
+	</delete>
+	
+	
+	<!--게시물 목록 -->
+	<!-- 
+	<select id="list" resultType="com.board.domain.BoardVO" parameterType="String">
+		select 
+			bno, title, subTitle, content, writer, regDate, viewCnt
+		from board.tbl_board
+		where writer = #{user_id}
+		order by regDate DESC
+		limit #{displayPost}, #{postNum}
+	</select>
+	-->
+	 
+	 <!-- 게시물 총 갯수 -->
+	<select id="count" resultType="int">
+		select count(bno) from board.tbl_board where user_id = #{user_id}
+	</select>
+	 
+	 	<!--썸네일 작성 -->
+	<insert id="writeThumb" parameterType="com.board.domain.BoardVO" useGeneratedKeys="true" keyProperty="bno">
+		insert into
+			board.tbl_board(writer, ori_boardThumbnail, boardThumbnail)
+				values(#{writer}, #{ori_boardThumbnail}, #{boardThumbnail})
+	</insert>
+	 
+	<!-- 게시물 수정 -->
+	<update id="modifyThumb" parameterType="com.board.domain.BoardVO" useGeneratedKeys="true" keyProperty="bno">
+		update board.tbl_board
+			set
+				ori_boardThumbnail = #{ori_boardThumbnail},
+				boardThumbnail = #{boardThumbnail}
+			where bno = #{bno}
+	</update>	 
+	
+	
+	
+	<!--게시물 목록 + 페이징 -->
+	<select id="listPage" parameterType="hashMap" resultType="com.board.domain.BoardVO">
+		select 
+			bno, title, content, writer, regDate, viewCnt
+		from board.tbl_board
+		order by bno desc
+			limit #{displayPost}, #{postNum}
+	</select>
+	
+	
+	
+	
+	<!-- 게시글 좋아요 조회 -->
+	<select id="boardLike" parameterType="com.board.domain.BoardLikeVO" resultType="com.board.domain.BoardLikeVO">
+		select 
+			bno, user_id, isUseLike, regDate
+		from board.tbl_board_like
+		where bno=#{bno} AND user_id = #{user_id}
+	</select>
+	
+	<!-- 게시글 좋아요 생성-->
+	<insert id="boardLikeInsert" parameterType="com.board.domain.BoardLikeVO" useGeneratedKeys="true" keyProperty="isUseLike">
+		insert into
+			board.tbl_board_like(bno, user_id, isUseLike)
+		values (#{bno}, #{user_id}, 1)
+	</insert>
+	
+		<!-- 게시글 좋아요 수정 -->
+	<update id="boardLikeModify" parameterType="com.board.domain.BoardLikeVO" useGeneratedKeys="true" keyProperty="isUseLike">
+		update board.tbl_board_like 
+		set isUseLike = #{isUseLike}
+		where bno=#{bno} AND user_id = #{user_id}
+	</update>
+	
+	
+
+	
+	
+	
+
+</mapper>

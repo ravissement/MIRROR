@@ -85,4 +85,10 @@ public class DiaryServiceImpl implements DiaryService {
 		return dao.adminApplyQuestion(vo);
 	}
 
+
+	@Override
+	public ApplyQuestionVO view(int ano) throws Exception {
+		return dao.view(ano);
+	}
+
 }

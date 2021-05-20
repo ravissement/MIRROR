@@ -52,4 +52,8 @@ public interface DiaryService {
 	//다이어리 캘린더
 	public List<DiaryQuestionVO> applyCalendar(String diaryMonth) throws Exception;
 	
+	
+	public ApplyQuestionVO view(int ano) throws Exception;
+	
+	
 }

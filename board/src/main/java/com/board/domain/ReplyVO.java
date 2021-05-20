@@ -5,13 +5,13 @@ import java.util.Date;
 public class ReplyVO {
 	/*
  	CREATE TABLE tbl_reply (
-	rno	INT	NOT NULL AUTO_INCREMENT,
-	bno	INT	NOT NULL,
-	writer	VARCHAR(30)	NOT NULL,
-	content	TEXT			NOT NULL,
-	regDate	TIMESTAMP	NOT NULL DEFAULT NOW(),
-	PRIMARY KEY(rno, bno),
-	FOREIGN KEY(bno) REFERENCES tbl_board(bno) ON UPDATE CASCADE ON DELETE CASCADE 
+	rno	 INT 	NOT  NULL  AUTO_INCREMENT,
+	bno	 INT	 NOT  NULL,
+	writer 	VARCHAR(30) 	NOT  NULL,
+	content 	TEXT  NOT  NULL,
+	regDate	 TIMESTAMP 	NOT  NULL  DEFAULT  NOW(),
+	PRIMARY  KEY(rno, bno),
+	FOREIGN  KEY(bno)  REFERENCES  tbl_board(bno)  ON  UPDATE  CASCADE  ON  DELETE  CASCADE 
 	); 
 	*/
 	

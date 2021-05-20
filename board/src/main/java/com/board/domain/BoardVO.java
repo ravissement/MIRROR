@@ -6,14 +6,16 @@ import java.util.Date;
 public class BoardVO {
 /*
 CREATE TABLE tbl_board(
-	bno INT	NOT NULL AUTO_INCREMENT,
-	title VARCHAR(50)	NOT NULL,
-	subTtitle VARCHAR(50)	NOT NULL,
-	content TEXT	NOT NULL,
-	writer	VARCHAR(30)	NOT NULL,
-	regDate	TIMESTAMP	DEFAULT NOW(),
-	viewCnt	INT	DEFAULT 0,
-	PRIMARY KEY(bno)
+	bno  INT 	NOT  NULL AUTO_INCREMENT,
+	title  VARCHAR(50)	NOT NULL,
+	subTtitle  VARCHAR(50)	NOT NULL,
+	content  TEXT	NOT NULL,
+	writer	 VARCHAR(30)	NOT NULL,
+	regDate	 TIMESTAMP  	DEFAULT NOW(),
+	viewCnt	 INT    	DEFAULT 0,
+	boardThumbnail varchar(300),
+	ori_boardThumbnail varchar(300),
+	PRIMARY  KEY(bno)
 );
 COMMIT;  
  

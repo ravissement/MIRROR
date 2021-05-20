@@ -106,10 +106,48 @@
 	<br>
 	<p style="text-align: center;"><input type="button" id="submitBtn" class="buttonJoinCustom" value="참여하기"/></p>
 	
-	<div style="height:20%;"></div>
-
-
-
+	<div style="height:10%;"></div>
+	
+	<a class="diaryQuestion">[올려주신 질문들]</a>
+	<table class="table" style="margin-top:50px;" id="userListViewTable">
+		<tbody id="ele">
+			<c:forEach items="${applyList}" var="applyList">
+				<tr>
+					<td style="text-align: left; height:150px;">
+						<a class="diaryQuestion" href="/apply/view?ano=${applyList.ano}">${applyList.diaryQuestion}</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [${applyList.cnt}] <br>
+						<span class="diaryQuestionEng">${applyList.diaryQuestionEng}</span> <br>
+						${applyList.user_id} /
+						<span style="font-size:0.6em;"><fmt:formatDate value="${applyList.regDate}" pattern="yyyy-MM-dd" /></span> <br />
+					</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+	
+	
+	<div style="text-align:center;">
+		<c:if test="${page.prev}">
+			<span>[ <a href="/apply/apply?num=${page.startPageNum - 1}${page.searchTypeKeyword}">이전</a> ]</span>
+		</c:if>
+		
+		<c:forEach begin="${page.startPageNum}" end="${page.endPageNum}" var="num">
+			<span>
+				<c:if test="${select != num}">
+					<a href="/apply/apply?num=${num}${page.searchTypeKeyword}">${num}</a>
+				</c:if>    
+				
+				<c:if test="${select == num}">
+					<b>${num}</b>
+				</c:if>
+				   
+			</span>
+		</c:forEach>
+				
+		<c:if test="${page.next}">
+			<span>[ <a href="/apply/apply?num=${page.endPageNum + 1}${page.searchTypeKeyword}">다음</a> ]</span>
+		</c:if>
+	</div>	
+	
 	<%@ include file="../include/footer.jsp" %>
 </div>    
 </body>

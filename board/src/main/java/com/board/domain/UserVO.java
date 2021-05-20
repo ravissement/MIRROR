@@ -6,14 +6,14 @@ public class UserVO {
 
 	/*
 	 CREATE TABLE tbl_user(
-	uno INT	NOT NULL AUTO_INCREMENT,
-	user_id VARCHAR(50)	NOT NULL,
-	user_pw	BLOB 	NOT NULL,
-	user_name VARCHAR(20)	NOT NULL,
-	user_thumbnail VARCHAR(500)	NOT NULL,
-	user_phone	BLOB 	NOT NULL,
-	user_email	BLOB 	NOT NULL,
-	regDate	TIMESTAMP	DEFAULT NOW()
+	uno   INT  	NOT NULL AUTO_INCREMENT,
+	user_id   VARCHAR(50)	NOT NULL,
+	user_pw  	BLOB 	NOT NULL,
+	user_name   VARCHAR(50)	NOT NULL,
+	user_thumbnail   VARCHAR(500),
+	user_phone	  BLOB  	NOT NULL,
+	user_email	  BLOB  	NOT NULL,
+	regDate 	TIMESTAMP   	DEFAULT NOW(),
 	PRIMARY KEY(uno)
 	);
 	COMMIT;  

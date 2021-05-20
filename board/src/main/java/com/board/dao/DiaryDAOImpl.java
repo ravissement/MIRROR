@@ -115,6 +115,11 @@ public class DiaryDAOImpl implements DiaryDAO {
 	public int adminApplyQuestion(ApplyQuestionVO vo) throws Exception {
 		return sql.insert(namespace + ".adminApplyQuestion", vo);
 	}
+
+	@Override
+	public ApplyQuestionVO view(int ano) throws Exception {
+		return sql.selectOne(namespace + ".view", ano);
+	}
 	
 	
 	

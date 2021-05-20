@@ -47,4 +47,7 @@ public interface DiaryDAO {
 	//다이어리 캘린더
 	public List<DiaryQuestionVO> applyCalendar(String diaryMonth) throws Exception;
 	
+	//다이어리 질문 올리기
+	public ApplyQuestionVO view(int ano) throws Exception;
+	
 }

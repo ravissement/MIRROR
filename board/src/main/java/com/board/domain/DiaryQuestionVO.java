@@ -6,17 +6,17 @@ public class DiaryQuestionVO {
 
 /*
 CREATE TABLE tbl_diaryQuestion(
-		qno INT	NOT NULL AUTO_INCREMENT,
-		diaryMonth CHAR(2)	NOT NULL,
-		diaryDay CHAR(2)	NOT NULL,
-		diaryQuestion VARCHAR(500)	NOT NULL,
-		diaryQuestionEng VARCHAR(500)	NOT NULL,
-		user_id	VARCHAR(30)	NOT NULL,
-		regDate	TIMESTAMP	DEFAULT NOW(),
-		isUse CHAR(1) DEFAULT 1,
-		questionVersion CHAR(1) DEFAULT 1,
-		PRIMARY KEY(qno)
-	);	
+ qno INT NOT NULL AUTO_INCREMENT,
+ diaryMonth  CHAR(2)  NOT NULL,
+ diaryDay  CHAR(2)  NOT NULL,
+ diaryQuestion  VARCHAR(500)  NOT NULL,
+ diaryQuestionEng  VARCHAR(500)  NOT NULL,
+ user_id VARCHAR(30) NOT NULL,
+ regDate TIMESTAMP DEFAULT NOW(),
+ isUse CHAR(1) DEFAULT 1,
+ questionVersion CHAR(1) DEFAULT 1,
+ PRIMARY KEY(qno)
+);	
 */
 	
 	private int qno;

@@ -3,6 +3,7 @@ package com.board.utils;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.Calendar;
+import java.util.UUID;
 
 import org.springframework.util.FileCopyUtils;
 
@@ -17,10 +18,10 @@ public class UploadFileUtils {
 	         String fileName,
 	         byte[] fileData, String ymdPath) throws Exception {
 
-	  //UUID uid = UUID.randomUUID();
+	  UUID uid = UUID.randomUUID();
 	  
-	  //String newFileName = uid + "_" + fileName;
-	  String newFileName = fileName;
+	  String newFileName = uid + "_" + fileName;
+	  //String newFileName = fileName;
 	  String imgPath = uploadPath + ymdPath;
 
 	  File target = new File(imgPath, newFileName);

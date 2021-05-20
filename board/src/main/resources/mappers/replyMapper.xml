@@ -38,4 +38,38 @@
 
 
 
+
+<!-- 댓글 조회 -->
+<select id="applyReplyList" parameterType="int" resultType="com.board.domain.ApplyReplyVO">
+    select
+        rno, ano, writer, content, regDate
+    from board.tbl_applyreply
+        where ano = #{ano}        
+</select>
+
+<!-- 댓글 작성 -->
+<insert id="applyReplyWrite" parameterType="com.board.domain.ApplyReplyVO">
+    insert into board.tbl_applyreply(ano, writer, content)
+        value(#{ano}, #{writer}, #{content})
+</insert>
+    
+<!-- 댓글 수정 -->
+<update id="applyReplyModify" parameterType="com.board.domain.ApplyReplyVO">
+    update board.tbl_applyreply set
+        writer = #{writer},
+        content = #{content},
+        regDate = SYSDATE()
+    where rno = #{rno}
+        and ano = #{ano}    
+</update>
+
+<!-- 댓글 삭제 -->
+<delete id="applyReplyDelete" parameterType="com.board.domain.ApplyReplyVO">
+    delete from board.tbl_applyreply
+    where rno = #{rno}
+        and ano = #{ano}    
+</delete>
+
+
+
 </mapper>
