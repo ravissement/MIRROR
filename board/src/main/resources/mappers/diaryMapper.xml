@@ -22,7 +22,7 @@
 	
 	<!-- 다이어리 질문 -->
 	<select id="diaryQuestion" parameterType="hashMap" resultType="com.board.domain.DiaryQuestionVO">
-		SELECT diaryMonth, diaryDay, diaryQuestion, diaryQuestionEng, user_id FROM board.tbl_diaryquestion 
+		SELECT diaryMonth, diaryDay, diaryQuestion, diaryQuestionEng, user_id FROM board.tbl_diaryQuestion 
 		WHERE diaryMonth = #{diaryMonth} AND diaryDay = #{diaryDay}
 	</select>
 	

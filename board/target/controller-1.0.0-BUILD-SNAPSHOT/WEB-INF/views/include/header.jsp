@@ -159,7 +159,7 @@ html.open {
 	    <li><a href="/">미러 홈</a></li>
 	    <li><a href="/board/homeList?num=1">새 기록들</a></li>
 	    <li><a href="/board/boardBest?num=1">베스트</a></li>
-	    <li><a href="/apply/apply">참여</a></li>
+	    <li><a href="/apply/apply?num=1">참여</a></li>
 	    <c:if test="${member.user_id eq 'ravissement'}">
 	    <li><a href="/admin/apply?num=1">질문 빌더</a></li>
 	    </c:if>

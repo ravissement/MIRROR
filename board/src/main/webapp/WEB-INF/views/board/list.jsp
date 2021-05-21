@@ -35,6 +35,9 @@
 		
 		<tbody>
 			
+			<c:if test="${empty list}">
+				<div style="text-align: center;">작성한 글이 없습니다.</div>
+			</c:if>
 			<c:forEach items="${list}" var="list">
 				<tr>
 					<td style="line-height:1.5em;">

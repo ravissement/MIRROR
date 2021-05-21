@@ -72,7 +72,7 @@
 	
 	<!-- 한줄참여 리스트 -->
 	<select id="applyList" parameterType="hashMap" resultType="com.board.domain.ApplyQuestionVO">
-		select ano, diaryMonth, diaryDay, diaryQuestion, diaryQuestionEng, q.user_id, q.regDate, AES_DECRYPT(UNHEX(user_email),'e') as user_email, AES_DECRYPT(UNHEX(user_phone),'p') as user_phone
+		select (select COUNT(*) from board.tbl_applyreply AS q3 WHERE q3.ano = q.ano) as cnt, ano, diaryMonth, diaryDay, diaryQuestion, diaryQuestionEng, q.user_id, q.regDate, AES_DECRYPT(UNHEX(user_email),'e') as user_email, AES_DECRYPT(UNHEX(user_phone),'p') as user_phone
 		from board.tbl_applyQuestion AS q LEFT JOIN board.tbl_user AS u ON q.user_id = u.user_id
 		where isUse = 1
 		 <if test='searchType.equals("diaryMonth")'>
@@ -100,7 +100,14 @@
 	</select>
 	
 
-
+	<!-- 게시물 조회 -->
+	<select id="view" parameterType="int" resultType="com.board.domain.ApplyQuestionVO">
+		select
+			ano, diaryMonth, diaryDay, diaryQuestion, diaryQuestionEng, user_id, regDate
+		from board.tbl_applyQuestion 
+		where isUse = 1
+		and	ano = #{ano}
+	</select>
 
 	
 </mapper>

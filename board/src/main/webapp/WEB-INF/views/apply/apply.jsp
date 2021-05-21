@@ -108,7 +108,7 @@
 	
 	<div style="height:10%;"></div>
 	
-	<a class="diaryQuestion">[올려주신 질문들]</a>
+	<a class="diaryQuestion"> [올려주신 질문들] </a>
 	<table class="table" style="margin-top:50px;" id="userListViewTable">
 		<tbody id="ele">
 			<c:forEach items="${applyList}" var="applyList">

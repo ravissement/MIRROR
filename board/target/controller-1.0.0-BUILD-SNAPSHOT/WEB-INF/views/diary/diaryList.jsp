@@ -31,9 +31,14 @@
 
 <div class="container">
 	<br>
-	<p><a class="diaryQuestion">${diaryQuestion.diaryQuestion}</a></p>
-	<p class="diaryQuestionEng">| ${diaryQuestion.diaryQuestionEng}</p>
-	<!-- <p class="diaryQuestionEng">By ${diaryQuestion.user_id}</p>  -->
+	<c:if test="${!empty diaryQuestion}">
+		<p><a class="diaryQuestion">${diaryQuestion.diaryQuestion}</a></p>
+		<p class="diaryQuestionEng">| ${diaryQuestion.diaryQuestionEng}</p>
+		<!-- <p class="diaryQuestionEng">By ${diaryQuestion.user_id}</p>  -->
+	</c:if>
+	<c:if test="${empty diaryQuestion}">
+		질문 작성중입니다.( [참여]에서 여러분의 질문을 던져주세요. )
+	</c:if>
 	<hr>
 	<form name="aform" method="post" action="/diary/diaryWrite">
 		<input type="hidden" name="diaryYear" value="" />
