@@ -27,7 +27,7 @@ It's your Mirror<br>
 - 좋아요 & 댓글
 - 배경이미지 & 프로필 썸네일 이미지 업로드
 # Table
-- domain DTO에 테이블 스크립트가 들어있습니다.
+- domain폴더의 VO class에 테이블 스크립트가 들어있습니다.
 # Environment
 - Spring Framework-version : 4.3.8 RELEASE <br>
 - Tomcat : 8.5 <br>
