@@ -24,10 +24,10 @@ It's your Mirror<br>
 - 로그인 및 세션 처리
 - 캘린더(일기장)
 - 좋아요 & 댓글
-- 배경이미지 & 프로필 이미지 & 썸네일 이미지 
+- 배경이미지 & 프로필 썸네일 이미지 업로드
 # Environment
-Spring Framework-version : 4.3.8 RELEASE <br>
-Tomcat : 8.5 <br>
-JAVA : openJDK 11 <br>
-DB : MariaDB <br>
-Server : AWS(Ubuntu) <br>
+- Spring Framework-version : 4.3.8 RELEASE <br>
+- Tomcat : 8.5 <br>
+- JAVA : openJDK 11 <br>
+- DB : MariaDB <br>
+- Server : AWS(Ubuntu) <br>
