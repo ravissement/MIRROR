@@ -26,6 +26,7 @@ It's your Mirror<br>
 - 캘린더(일기장)
 - 좋아요 & 댓글
 - 배경이미지 & 프로필 썸네일 이미지 업로드
+- 개인정보 암호화 처리: SHA2(비밀번호), AES(phone, email)
 # Table
 - domain폴더의 VO class에 테이블 스크립트가 들어있습니다.
 # Environment
