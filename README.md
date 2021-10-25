@@ -1,24 +1,17 @@
-# mirrorWeb
+# MIRROR
+Test version
+<br>
+It's your MIROR
+<br>
+<br>
 
-
-Motivation Story
+## Motivation Story(Personal Blog)
 https://ravissement.tistory.com/153?category=927925
 
-
-Website
+## Website
 http://www.ravissement.club
 
-
-Test version
-
-
-It's your Mirror<br>
-<br>
-<br>
-
-
-
-# Function
+## Function
 - Writing(CURD)
 - List-Paging(infinite scrolling)
 - Maintain login session
@@ -27,9 +20,9 @@ It's your Mirror<br>
 - Like & Comment
 - Upload background and profile thumbnail images
 - Personal information encryption: SHA2(passwrod), AES(phone, email)
-# Table
+## Table
 - A table script is included in the domain/VO class of each page. 
-# Environment
+## Environment
 - Spring Framework-version : 4.3.8 RELEASE <br>
 - Tomcat : 8.5 <br>
 - JAVA : openJDK 11 <br>
