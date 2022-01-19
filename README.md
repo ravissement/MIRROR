@@ -38,3 +38,29 @@ http://www.ravissement.club
 - JAVA : openJDK 11 <br>
 - DB : MariaDB <br>
 - Server : AWS(Ubuntu) <br>
+
+# Preview
+## Home
+![20220119_151913](https://user-images.githubusercontent.com/57596337/150075154-274ef112-e955-4f89-a8b2-1e7e01c5b583.png)
+## Login
+![20220119_150959](https://user-images.githubusercontent.com/57596337/150075253-375c47bc-831a-4888-8f04-1fe77f06f92d.png)
+## Sign Up
+![20220119_151011](https://user-images.githubusercontent.com/57596337/150075331-4f6c7060-5394-420c-a083-c9474debf6ac.png)
+## Navigation
+![20220119_151143](https://user-images.githubusercontent.com/57596337/150075435-365ac220-8195-4883-801a-0cfacadfdccd.png)
+## Write
+![20220119_151203](https://user-images.githubusercontent.com/57596337/150075553-b1baace4-17f7-4e38-b2c8-263ebe8410a2.png)
+## Page View
+![20220119_151055](https://user-images.githubusercontent.com/57596337/150075627-560c978c-b849-4556-9ce5-053935379d6b.png)
+## List View
+![20220119_151025](https://user-images.githubusercontent.com/57596337/150075675-c8efba02-b438-4feb-800b-027b0b960c4a.png)
+## Calendar
+![20220119_151617](https://user-images.githubusercontent.com/57596337/150075854-78beae53-41a8-4423-b1e1-ed1115a320e0.png)
+## Calendar Write
+![20220119_151554](https://user-images.githubusercontent.com/57596337/150075905-2edd5519-2cbd-4502-bcd3-64fa1f52453d.png)
+## Calendar participate in writing questions 
+![20220119_151227](https://user-images.githubusercontent.com/57596337/150076043-4929addf-047b-41b1-afc0-8d603e34d4d4.png)
+## Calendar participate List
+![20220119_151240](https://user-images.githubusercontent.com/57596337/150076103-0bdbc62a-e95a-4b1b-9e44-cadd931c50b5.png)
+## Admin question enrollment
+![20220119_151513](https://user-images.githubusercontent.com/57596337/150076199-334ace7a-9acb-4d6a-8e8a-f001dba75859.png)
