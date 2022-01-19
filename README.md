@@ -1,4 +1,7 @@
 # MIRROR
+Web-based writer platform
+<br>
+<br>
 It's your MIROR
 <br>
 <br>
