@@ -1,6 +1,4 @@
 # MIRROR
-Test version
-<br>
 It's your MIROR
 <br>
 <br>
