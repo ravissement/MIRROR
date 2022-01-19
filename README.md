@@ -25,7 +25,7 @@ A table script is included in the domain/VO class of each page.
 ![20220119_114802](https://user-images.githubusercontent.com/57596337/150054667-9a224218-13b4-435d-b828-c69146c99e3e.png)
 
 
-# Preview
+# WEB Preview
 ## Home
 ![20220119_151913](https://user-images.githubusercontent.com/57596337/150075154-274ef112-e955-4f89-a8b2-1e7e01c5b583.png)
 ## Login
