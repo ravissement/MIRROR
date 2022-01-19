@@ -3,6 +3,8 @@ Test version
 <br>
 It's your MIROR
 <br>
+I am working on a new version.(2.0)
+<br>
 <br>
 
 ## Motivation Story(Personal Blog)
