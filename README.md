@@ -39,7 +39,7 @@ A table script is included in the domain/VO class of each page.
 ## Page View
 ![20220119_151055](https://user-images.githubusercontent.com/57596337/150075627-560c978c-b849-4556-9ce5-053935379d6b.png)
 ## List View
-![Inked150075675-c8efba02-b438-4feb-800b-027b0b960c4a_LI](https://user-images.githubusercontent.com/57596337/150079488-9995df4c-c562-463c-a096-a0dd2bf87c5b.jpg)
+![20220119_160824](https://user-images.githubusercontent.com/57596337/150081326-31ff8a90-fe7c-41e5-8f5c-38f89a4dece7.png)
 ## Calendar
 ![20220119_151617](https://user-images.githubusercontent.com/57596337/150075854-78beae53-41a8-4423-b1e1-ed1115a320e0.png)
 ## Calendar Write
