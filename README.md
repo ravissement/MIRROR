@@ -27,6 +27,7 @@ http://www.ravissement.club
 - Personal information encryption: SHA2(passwrod), AES(phone, email)
 ## Table (To be changed)
 ### A table script is included in the domain/VO class of each page.
+### If you want to see the database design, download this. 'DB_design-1-0.xlsx'
 ![20220119_114750](https://user-images.githubusercontent.com/57596337/150054496-d3415c56-4083-42ef-a2a5-43de8ed10e1d.png)
 
 ## View (To be changed)
