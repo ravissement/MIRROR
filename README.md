@@ -46,7 +46,7 @@ http://www.ravissement.club
 ## Sign Up
 ![20220119_151011](https://user-images.githubusercontent.com/57596337/150075331-4f6c7060-5394-420c-a083-c9474debf6ac.png)
 ## Navigation
-![20220119_151143](https://user-images.githubusercontent.com/57596337/150075435-365ac220-8195-4883-801a-0cfacadfdccd.png)
+![20220119_155600](https://user-images.githubusercontent.com/57596337/150079765-b19af7fb-0d16-413d-80fd-b40c3f0c1c51.png)
 ## Write
 ![20220119_151203](https://user-images.githubusercontent.com/57596337/150075553-b1baace4-17f7-4e38-b2c8-263ebe8410a2.png)
 ## Page View
