@@ -54,5 +54,3 @@ A table script is included in the domain/VO class of each page.
 ## Motivation Story(Personal Blog)
 https://ravissement.tistory.com/153?category=927925
 
-## Website
-http://www.ravissement.club
