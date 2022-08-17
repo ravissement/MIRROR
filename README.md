@@ -1,6 +1,7 @@
 # MIRROR
 ### Web-based writer platform
-This is a test version for now.(1.0)
+This is a test version for now.(1.0) <br>
+Motivation Story : <a href="https://ravissement.tistory.com/153?category=927925">Ravissement (Personal Blog)</a>
 ## Environment
 - Spring Framework-version : 4.3.8 RELEASE <br>
 - Tomcat : 8.5 <br>
@@ -51,6 +52,6 @@ A table script is included in the domain/VO class of each page.
 ## Admin question enrollment
 ![Inked150076199-334ace7a-9acb-4d6a-8e8a-f001dba75859_LI](https://user-images.githubusercontent.com/57596337/150077422-a67837f8-93ef-4b3c-b637-80e0c244f439.jpg)
 
-## Motivation Story(Personal Blog)
-https://ravissement.tistory.com/153?category=927925
+
+
 
